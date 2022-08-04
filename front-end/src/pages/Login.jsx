@@ -7,11 +7,11 @@ function Login() {
   const isValidButton = useMemo(() => {
     const regexEmail = /\S+@\S+\.\S+/;
     const numberCompare = 6;
-    const test = true;
+    const valid = true;
     if (regexEmail.test(inputEmail) && inputPassword.length < numberCompare) {
       return false;
     }
-    return test;
+    return valid;
   }, [inputEmail, inputPassword]);
 
   return (
@@ -32,7 +32,8 @@ function Login() {
           onChange={ ({ target }) => setInputPassword(target.value) }
         />
       </label>
-      <button type="button" disabled={ isValidButton }>logar</button>
+      <button type="button" disabled={ isValidButton }>Login</button>
+      <button type="button">Ainda Nao Tenho Conta</button>
     </form>
   );
 }
