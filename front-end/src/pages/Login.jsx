@@ -1,6 +1,9 @@
 import React, { useState, useMemo } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 function Login() {
+  const navigate = useNavigate();
+
   const [inputEmail, setInputEmail] = useState('');
   const [inputPassword, setInputPassword] = useState('');
 
@@ -32,8 +35,20 @@ function Login() {
           onChange={ ({ target }) => setInputPassword(target.value) }
         />
       </label>
-      <button type="button" disabled={ isValidButton }>Login</button>
-      <button type="button">Ainda Nao Tenho Conta</button>
+      <button
+        data-testid="common_login__button-login"
+        type="button"
+        disabled={ isValidButton }
+      >
+        Login
+      </button>
+      <button
+        data-testid="common_login__button-register"
+        type="button"
+        onClick={ () => navigate('/register') }
+      >
+        Ainda Nao Tenho Conta
+      </button>
     </form>
   );
 }
