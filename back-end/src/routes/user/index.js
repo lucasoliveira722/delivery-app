@@ -4,6 +4,6 @@ const userRouter = express.Router();
 
 const userController = require('../../controllers/user.controller');
 
-userRouter.post('/', () => console.log('oi'));
+userRouter.post('/create', userController.create);
 
 module.exports = userRouter;

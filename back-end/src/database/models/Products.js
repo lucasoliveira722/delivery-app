@@ -1,5 +1,5 @@
-const Products = (sequelize, DataTypes) => {
-    const Products = sequelize.define('Products', {
+const Product = (sequelize, DataTypes) => {
+    const Product = sequelize.define('Product', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -18,9 +18,9 @@ const Products = (sequelize, DataTypes) => {
         allowNull: false,
         type: DataTypes.STRING
       },
-    }, {timestamps: false});
+    }, {timestamps: false, tableName: 'products'});
   
-    return Products;
+    return Product;
   };
   
-  module.exports = Products;
+  module.exports = Product;

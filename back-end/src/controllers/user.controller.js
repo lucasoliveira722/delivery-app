@@ -1,8 +1,11 @@
-import userService from '../services/user.service';
+const userService = require('../services/user.service');
 
-const create = (req, res, next) => {
-    console.log('oi');
+module.exports = {
+    async create(req, res, next) {
+        const { name, email, password } = req.body; 
+        const newUser = await userService.create({name, email, password});
+        return res.status(200).json(newUser);
+        
+    }
 }
 
-
-module.exports = userController;
