@@ -1,36 +1,40 @@
-import React, { useState, useMemo } from "react"
+import React, { useState, useMemo } from 'react';
 
-const Login = () => {
+function Login() {
   const [inputEmail, setInputEmail] = useState('');
-  const [inputPassword, setInputPassword] = useState ('');
+  const [inputPassword, setInputPassword] = useState('');
 
   const isValidButton = useMemo(() => {
     const regexEmail = /\S+@\S+\.\S+/;
-    if (regexEmail.test(inputEmail) && inputPassword.length < 6 ) {
+    const numberCompare = 6;
+    const test = true;
+    if (regexEmail.test(inputEmail) && inputPassword.length < numberCompare) {
       return false;
     }
-    return true
-  }, [inputEmail, inputPassword])
+    return test;
+  }, [inputEmail, inputPassword]);
 
   return (
     <form>
-      <label>
+      <label htmlFor="common_login__input-email">
         <input
+          data-testid="common_login__input-email"
           placeholder="digite seu Email"
-          type='text'
-          onChange={({target}) => setInputEmail(target.value)}
-         />
+          type="text"
+          onChange={ ({ target }) => setInputEmail(target.value) }
+        />
       </label>
-      <label>
+      <label htmlFor="common_login__input-password">
         <input
+          data-testid="common_login__input-password"
           type="password"
           placeholder="digite sua senha"
-          onChange={({target}) => setInputPassword(target.value)}
-         />
+          onChange={ ({ target }) => setInputPassword(target.value) }
+        />
       </label>
-      <button type="button" disabled={isValidButton}>logar</button>
+      <button type="button" disabled={ isValidButton }>logar</button>
     </form>
-  )
+  );
 }
 
 export default Login;
