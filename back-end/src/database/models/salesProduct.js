@@ -1,5 +1,5 @@
-const SalesProducts = (sequelize, DataTypes) => {
-    const SalesProducts = sequelize.define('SalesProducts', {
+const SaleProduct = (sequelize, DataTypes) => {
+    const SaleProduct = sequelize.define('salesProduct', {
         sale_id: {
             allowNull: false,
             type: DataTypes.INTEGER,
@@ -20,9 +20,9 @@ const SalesProducts = (sequelize, DataTypes) => {
             allowNull: false,
             type: DataTypes.INTEGER,
           }
-    }, {timestamps: false});
+    }, {timestamps: false, tableName: 'salesProducts'});
   
-    return SalesProducts;
+    return SaleProduct;
   };
   
-  module.exports = SalesProducts;
+  module.exports = SaleProduct;

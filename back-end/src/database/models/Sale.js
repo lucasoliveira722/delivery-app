@@ -1,5 +1,5 @@
-const Sales = (sequelize, DataTypes) => {
-    const Sales = sequelize.define('Sales', {
+const Sale = (sequelize, DataTypes) => {
+    const Sale = sequelize.define('Sale', {
         id: {
             allowNull: false,
             autoIncrement: true,
@@ -38,9 +38,9 @@ const Sales = (sequelize, DataTypes) => {
             allowNull: false,
             type: DataTypes.DATE,
           },
-    }, {timestamps: false});
+    }, {timestamps: false, tableName: 'sales'});
   
-    return Sales;
+    return Sale;
   };
   
-  module.exports = Sales;
+  module.exports = Sale;
