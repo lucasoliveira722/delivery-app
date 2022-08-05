@@ -1,12 +1,12 @@
-const express = require("express");
-const login = require("../controllers/login.controller");
-const errorMiddleware = require("../middlewares/errorMiddleware");
-const loginRouter = require("../routes/login");
+require('express-async-errors');
+const express = require('express');
+const errorMiddleware = require('../middlewares/errorMiddleware');
+const router = require('../routes/index');
 
 const app = express();
 
-app.get("/coffee", (_req, res) => res.status(418).end());
-app.use(loginRouter);
+app.get('/coffee', (_req, res) => res.status(418).end());
+app.use(router);
 app.use(errorMiddleware);
 
 module.exports = app;

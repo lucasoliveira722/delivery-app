@@ -1,20 +1,21 @@
-const { Users } = require("../database/models/Users");
-const errorObj = require("../helpers/errorObj");
-const emailValidation = require("../validations/emailValidation");
+const { users } = require('../database/models');
+const errorObj = require('../helpers/errorObj');
+const emailValidation = require('../validations/emailValidation');
 
 const login = async (email, password) => {
   const validEmail = emailValidation(email);
-  if (password.length < 6) {
-    throw errorObj(400, "Senha deve ter ao menos 06 caracteres");
+
+  if (!validEmail) throw errorObj(400, 'Formatação do e-mail inválida');
+
+  if (password.toString().length < 6) {
+    throw errorObj(400, 'Senha deve ter ao menos 06 caracteres');
   }
-  if (!validEmail) throw errorObj(400, "E-mail inválido");
 
-  const user = await Users.findOne({ where: { email } });
+  console.log('14');
+  const user = await users.findOne({ where: { email } });
+  console.log(15);
 
-  if (!user) throw errorObj(404, "E-mail do usuário não encontrado");
-  email;
-
-  console.log(user);
+  if (!user) throw errorObj(404, 'E-mail do usuário não encontrado');
 
   return user;
 };
