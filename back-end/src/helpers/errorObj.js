@@ -1,5 +1,3 @@
-const errorObj = (status, message) => {
-  return { status, message };
-};
+const errorObj = (status, message) => ({ status, message });
 
 module.exports = errorObj;
