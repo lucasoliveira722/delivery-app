@@ -1,6 +1,6 @@
 const { User } = require('../database/models');
 const errorObj = require('../helpers/errorObj');
-const generateToken = require('../middlewares/generateToken');
+const { generateToken } = require('../helpers/generateToken');
 const emailValidation = require('../validations/emailValidation');
 const passwordValidation = require('../validations/passwordValidation');
 
@@ -13,10 +13,9 @@ const login = async (email, password) => {
 
   const userExists = await User.findOne({ where: { email } });
 
-  if (!userExists) throw errorObj(404, 'E-mail ou senha inválidos');
+  if (!userExists) throw errorObj(404, 'E-mail não cadastrado');
 
   const { dataValues: user } = userExists;
-
   const correctPassword = await passwordValidation(password, user.password);
 
   if (!correctPassword) {
@@ -24,10 +23,8 @@ const login = async (email, password) => {
   }
 
   delete user.password;
-
   const token = generateToken(user);
-
   return token;
 };
 
-module.exports = login;
+module.exports = { login };
