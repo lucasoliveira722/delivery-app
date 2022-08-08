@@ -9,18 +9,10 @@ const Sale = (sequelize, DataTypes) => {
           user_id: {
             allowNull: false,
             type: DataTypes.INTEGER,
-            references: {
-              model: 'users',
-              key: 'id',
-            }
           },
           seller_id: {
             allowNull: false,
             type: DataTypes.INTEGER,
-            references: {
-              model: 'users',
-              key: 'id',
-            }
           },
           total_price: {
             allowNull: false,
