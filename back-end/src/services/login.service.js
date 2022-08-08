@@ -6,11 +6,12 @@ const passwordValidation = require('../validations/passwordValidation');
 
 const login = async (email, password) => {
   emailValidation(email);
-
+  
   if (password.toString().length < 6) {
     throw errorObj(400, 'Senha deve ter ao menos 06 caracteres');
   }
-
+  
+  console.log(email);
   const userExists = await User.findOne({ where: { email } });
 
   if (!userExists) throw errorObj(404, 'E-mail não cadastrado');
