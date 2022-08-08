@@ -12,3 +12,4 @@ module.exports = {
         if (user.length > 0) throw errorObj(409, 'Usuário já cadastrado');
     },
 };
+
