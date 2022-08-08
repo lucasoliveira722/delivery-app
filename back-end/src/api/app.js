@@ -1,12 +1,12 @@
-const express = require("express");
-const login = require("../controllers/login.controller");
-const errorMiddleware = require("../middlewares/errorMiddleware");
+require('express-async-errors');
 
-const app = express();
+const express = require('express');
+const errorMiddleware = require('../middlewares/errorMiddleware');
 const router = require('../routes/index');
 
+const app = express();
 
-app.get("/coffee", (_req, res) => res.status(418).end());
+app.get('/coffee', (_req, res) => res.status(418).end());
 app.use(router);
 app.use(errorMiddleware);
 
