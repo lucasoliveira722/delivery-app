@@ -22,15 +22,11 @@ function Login() {
   const handleLogin = useCallback(async () => {
     try {
       const response = await API.loginUser(inputEmail, inputPassword);
-      // console.log('response', response);
-      setToken(response);
+      setToken(response.token);
     } catch (error) {
-      console.log('erroL', error);
       throw new Error(error.message);
     }
   }, [inputEmail, inputPassword]);
-
-  console.log('token', token);
 
   return (
     <form>
