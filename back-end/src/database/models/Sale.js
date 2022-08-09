@@ -30,6 +30,11 @@ const Sale = (sequelize, DataTypes) => {
             allowNull: false,
             type: DataTypes.DATE,
           },
+          status: {
+            allowNull: false,
+            type: DataTypes.STRING,
+            default: 'Pendente',
+          },
     }, {timestamps: false, tableName: 'sales'});
   
     return Sale;
