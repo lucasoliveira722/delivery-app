@@ -5,7 +5,7 @@ const loginUser = async (email, password) => {
     const { data } = await axios.post('http://localhost:3001/login', { email, password });
     return data;
   } catch (error) {
-    throw new Error(error.mesasge);
+    throw new Error(error.message);
   }
 };
 
@@ -14,7 +14,7 @@ const registerUser = async (name, email, password, role) => {
     const { data } = await axios.post('http://localhost:3001/users/create', { name, email, password, role });
     return data;
   } catch (error) {
-    throw new Error(error.mesasge);
+    throw new Error(error.message);
   }
 };
 

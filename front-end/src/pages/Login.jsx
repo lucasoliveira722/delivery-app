@@ -25,7 +25,7 @@ function Login() {
       // console.log('response', response);
       setToken(response);
     } catch (error) {
-      console.log('erroL', error)
+      console.log('erroL', error);
       throw new Error(error.message);
     }
   }, [inputEmail, inputPassword]);
