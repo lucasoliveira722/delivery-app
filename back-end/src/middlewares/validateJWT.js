@@ -13,7 +13,7 @@ module.exports = {
       }
   
       const { data } = jwt.verify(token, secret);
-      req.role = data.role;
+      req.data = data;
   
       next();
     } catch (err) {
