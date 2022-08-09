@@ -6,4 +6,9 @@ module.exports = {
         const newUser = await userService.create({ name, email, password, role });
         return res.status(201).json(newUser);
     },
+
+    async getAll(_req, res) {
+        const users = await userService.getAll();
+        return res.status(200).json(users);
+    },
 };

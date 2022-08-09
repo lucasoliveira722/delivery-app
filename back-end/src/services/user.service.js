@@ -15,4 +15,9 @@ module.exports = {
         });
         if (user.length > 0) throw errorObj(409, 'Usuário já cadastrado');
     },
+
+    async getAll() {
+        const users = await User.findAll();
+        return users;
+    },
 };
