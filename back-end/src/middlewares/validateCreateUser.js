@@ -9,9 +9,9 @@ const JoiCreateUser = Joi.object({
 
 const validateCreateUser = (req, res, next) => {
     const { name, email, password, role } = req.body;
-    const validRoleOptions = ['administrator', 'seller', 'customer']; 
     const { error } = JoiCreateUser.validate({ name, email, password, role });
     if (error) next({ message: error.message, status: 400 });
+    const validRoleOptions = ['administrator', 'seller', 'customer']; 
     if (validRoleOptions.every((r) => r !== role)) {
         next({ message: 'Invalid role option', status: 400 });
     }

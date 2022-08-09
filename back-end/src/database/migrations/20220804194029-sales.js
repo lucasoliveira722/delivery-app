@@ -40,6 +40,12 @@ module.exports = {
       sale_date: {
         allowNull: false,
         type: Sequelize.DATE,
+        defaultValue: new Date(Date.now()),
+      },
+      status: {
+        allowNull: false,
+        type: Sequelize.STRING,
+        defaultValue: 'Pending',
       },
     });
   },
