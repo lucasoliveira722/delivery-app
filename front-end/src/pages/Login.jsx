@@ -1,13 +1,15 @@
-import React, { useState, useMemo, useCallback } from 'react';
+import React, { useState, useMemo, useCallback, useContext } from 'react';
+
 import { useNavigate } from 'react-router-dom';
+import GenericContext from '../context/GenericContext';
 import API from '../services/API';
 
 function Login() {
   const navigate = useNavigate();
+  const { handleSaveLocalStorage } = useContext(GenericContext);
 
   const [inputEmail, setInputEmail] = useState('');
   const [inputPassword, setInputPassword] = useState('');
-  const [token, setToken] = useState('');
 
   const isValidButton = useMemo(() => {
     const regexEmail = /\S+@\S+\.\S+/;
@@ -22,11 +24,11 @@ function Login() {
   const handleLogin = useCallback(async () => {
     try {
       const response = await API.loginUser(inputEmail, inputPassword);
-      setToken(response.token);
+      handleSaveLocalStorage('token', response.token);
     } catch (error) {
       throw new Error(error.message);
     }
-  }, [inputEmail, inputPassword]);
+  }, [inputEmail, inputPassword, handleSaveLocalStorage]);
 
   return (
     <form>
