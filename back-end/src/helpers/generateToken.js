@@ -5,7 +5,7 @@ const secret = process.env.JWT_SECRET || 'your_secret';
 
 const generateToken = (user) => {
   const jwtConfig = {
-    expiresIn: '1d',
+    expiresIn: '7d',
     algorithm: 'HS256',
   };
 
