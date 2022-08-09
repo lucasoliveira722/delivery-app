@@ -29,11 +29,12 @@ const Sale = (sequelize, DataTypes) => {
           sale_date: {
             allowNull: false,
             type: DataTypes.DATE,
+            defaultValue: new Date(Date.now()),
           },
           status: {
             allowNull: false,
             type: DataTypes.STRING,
-            default: 'Pendente',
+            defaultValue: 'Pendente',
           },
     }, {timestamps: false, tableName: 'sales'});
   
