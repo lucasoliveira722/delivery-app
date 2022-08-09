@@ -23,10 +23,8 @@ function Register() {
   const registerUser = useCallback(async () => {
     const role = 'customer';
     try {
-      const response = await API.registerUser(inputName, inputEmail, inputPassword, role);
-      console.log('response', response);
+      await API.registerUser(inputName, inputEmail, inputPassword, role);
     } catch (error) {
-      console.log('erroR', error);
       throw new Error(error.message);
     }
   }, [inputEmail, inputName, inputPassword]);
