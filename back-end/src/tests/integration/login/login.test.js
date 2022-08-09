@@ -10,16 +10,13 @@ const {
   invalidEmailRequest,
   shortPasswordRequest,
   wrongPasswordRequest,
-  userRequest,
-  userDataValuesMock,
-  tokenMock,
   noPasswordRequest,
 } = require('../../database-mock/loginMocks');
 
 chai.use(chaiHttp);
 
-describe('Testa requisição na rota /login', () => {
-  describe('em caso com e-mail não cadastrado no banco', () => {
+describe('Integração - Testa requisição na rota /login', () => {
+  describe('1 - Caso com e-mail não cadastrado no banco', () => {
     before(async () => {
       sinon.stub(User, 'findOne').resolves(null);
     });
@@ -28,7 +25,7 @@ describe('Testa requisição na rota /login', () => {
       User.findOne.restore();
     });
 
-    it('retorna status 404 e objeto com message "E-mail não cadastrado"', async () => {
+    it('1.1 - Retorna status 404 e objeto com message "E-mail não cadastrado"', async () => {
       return chai
         .request(app)
         .post('/login')
@@ -40,8 +37,8 @@ describe('Testa requisição na rota /login', () => {
     });
   });
 
-  describe('em caso com e-mail com formatação inválida', () => {
-    it('retorna status 400 e objeto com message "Formatação do e-mail inválida"', async () => {
+  describe('2 - Caso com e-mail com formatação inválida', () => {
+    it('2.1 - Retorna status 400 e objeto com message "Formatação do e-mail inválida"', async () => {
       return chai
         .request(app)
         .post('/login')
@@ -53,8 +50,8 @@ describe('Testa requisição na rota /login', () => {
     });
   });
 
-  describe('em caso com senha com menos de 06 caracteres', () => {
-    it('retorna status 400 e objeto com message "Senha deve ter ao menos 06 caracteres"', async () => {
+  describe('3 - Caso com senha com menos de 06 caracteres', () => {
+    it('3.1 - Retorna status 400 e objeto com message "Senha deve ter ao menos 06 caracteres"', async () => {
       return chai
         .request(app)
         .post('/login')
@@ -68,8 +65,8 @@ describe('Testa requisição na rota /login', () => {
     });
   });
 
-  describe('em caso com senha incorreta', () => {
-    it('retorna status 401 e objeto com message "E-mail ou senha incorretos"', async () => {
+  describe('4 - Caso com senha incorreta', () => {
+    it('4.1 - Retorna status 401 e objeto com message "E-mail ou senha incorretos"', async () => {
       return chai
         .request(app)
         .post('/login')
@@ -81,7 +78,7 @@ describe('Testa requisição na rota /login', () => {
     });
   });
 
-  describe('em caso de erro não tratado', () => {
+  describe('5- Caso de erro não tratado', () => {
     before(async () => {
       sinon.stub(User, 'findOne').resolves(null);
     });
@@ -90,7 +87,7 @@ describe('Testa requisição na rota /login', () => {
       User.findOne.restore();
     });
 
-    it('se retorna status 500 e objeto com message "Internal server error"', async () => {
+    it('5.1- Retorna status 500 e objeto com message "Internal server error"', async () => {
       return chai
         .request(app)
         .post('/login')
