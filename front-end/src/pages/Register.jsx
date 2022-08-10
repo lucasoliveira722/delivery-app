@@ -1,4 +1,5 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useCallback } from 'react';
+import API from '../services/API';
 
 function Register() {
   const [inputEmail, setInputEmail] = useState('');
@@ -12,12 +13,21 @@ function Register() {
     const valid = true;
     if (
       regexEmail.test(inputEmail)
-       && inputPassword.length < numberComparePassword
-       && inputName.length < numberCompareName) {
+       && inputPassword.length > numberComparePassword
+       && inputName.length > numberCompareName) {
       return false;
     }
     return valid;
   }, [inputEmail, inputName.length, inputPassword.length]);
+
+  const registerUser = useCallback(async () => {
+    const role = 'customer';
+    try {
+      await API.registerUser(inputName, inputEmail, inputPassword, role);
+    } catch (error) {
+      throw new Error(error.message);
+    }
+  }, [inputEmail, inputName, inputPassword]);
 
   return (
     <form>
@@ -49,6 +59,7 @@ function Register() {
         data-testid="common_register__button-register"
         type="button"
         disabled={ isValidButton }
+        onClick={ () => registerUser() }
       >
         CADASTRAR
       </button>

@@ -15,4 +15,10 @@ module.exports = {
         });
         if (user.length > 0) throw errorObj(409, 'Usuário já cadastrado');
     },
+
+    async getAll(role) {
+        if (role !== 'administrator') throw errorObj(403, 'User unauthorized');
+        const users = await User.findAll();
+        return users;
+    },
 };
