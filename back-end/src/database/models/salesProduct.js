@@ -17,21 +17,21 @@ const SaleProduct = (sequelize, DataTypes) => {
     }, {timestamps: false, tableName: 'salesProducts', underscored: true});
 
     // Verificar se é snakeCase ou camelCase
-    // SaleProduct.associate = (models) => {
-    //   SaleProduct.belongsTo(models.Sale, {
-    //     as: 'sale',
-    //     through: SaleProduct,
-    //     foreignKey: 'sale_id',
-    //     otherKey: 'product_id',
-    //   });
+    SaleProduct.associate = (models) => {
+      SaleProduct.belongsTo(models.Sale, {
+        as: 'sale',
+        through: SaleProduct,
+        foreignKey: 'sale_id',
+        otherKey: 'product_id',
+      });
 
-    //   SaleProduct.belongsTo(models.Product, {
-    //     as: 'product',
-    //     through: SaleProduct,
-    //     foreignKey: 'product_id',
-    //     otherKey: 'sale_id',
-    //   })
-    // }
+      SaleProduct.belongsTo(models.Product, {
+        as: 'product',
+        through: SaleProduct,
+        foreignKey: 'product_id',
+        otherKey: 'sale_id',
+      })
+    }
   
     return SaleProduct;
   };
