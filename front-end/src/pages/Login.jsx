@@ -1,20 +1,31 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
+import API from '../services/API';
 
 function Login() {
   const navigate = useNavigate();
 
   const [inputEmail, setInputEmail] = useState('');
   const [inputPassword, setInputPassword] = useState('');
+  const [token, setToken] = useState('');
 
   const isValidButton = useMemo(() => {
     const regexEmail = /\S+@\S+\.\S+/;
     const numberCompare = 6;
     const valid = true;
-    if (regexEmail.test(inputEmail) && inputPassword.length < numberCompare) {
+    if (regexEmail.test(inputEmail) && inputPassword.length > numberCompare) {
       return false;
     }
     return valid;
+  }, [inputEmail, inputPassword]);
+
+  const handleLogin = useCallback(async () => {
+    try {
+      const response = await API.loginUser(inputEmail, inputPassword);
+      setToken(response.token);
+    } catch (error) {
+      throw new Error(error.message);
+    }
   }, [inputEmail, inputPassword]);
 
   return (
@@ -39,6 +50,7 @@ function Login() {
         data-testid="common_login__button-login"
         type="button"
         disabled={ isValidButton }
+        onClick={ () => handleLogin() }
       >
         Login
       </button>

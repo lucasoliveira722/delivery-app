@@ -27,7 +27,7 @@ module.exports = {
       },
       total_price: {
         allowNull: false,
-        type: Sequelize.INTEGER,
+        type: Sequelize.DECIMAL(6, 2),
       },
       delivery_address: {
         allowNull: false,
@@ -40,6 +40,12 @@ module.exports = {
       sale_date: {
         allowNull: false,
         type: Sequelize.DATE,
+        defaultValue: new Date(Date.now()),
+      },
+      status: {
+        allowNull: false,
+        type: Sequelize.STRING,
+        defaultValue: 'Pending',
       },
     });
   },
