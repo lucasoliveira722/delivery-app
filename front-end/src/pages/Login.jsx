@@ -27,7 +27,7 @@ function Login() {
         .then((res) => {
           if (res) {
             handleSaveLocalStorage('token', res.token);
-            navigate('/products');
+            navigate('/customer/products');
           }
         });
     } catch (error) {

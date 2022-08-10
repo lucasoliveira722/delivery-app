@@ -1,6 +1,8 @@
+import Header from '../components/Header';
+
 function Products() {
   return (
-    <h1> Products</h1>
+    <Header />
   );
 }
 export default Products;

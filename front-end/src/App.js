@@ -14,7 +14,7 @@ function App() {
           <Route path="/" element={ <Navigate replace to="/login" /> } />
           <Route path="/login" element={ <Login /> } />
           <Route path="/register" element={ <Register /> } />
-          <Route path="/products" element={ <Products /> } />
+          <Route path="customer/products" element={ <Products /> } />
         </Routes>
       </BrowserRouter>
     </GenericContextProvider>
