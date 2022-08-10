@@ -1,8 +1,13 @@
 import Header from '../components/Header';
+import ProductCard from '../components/ProductCard';
 
 function Products() {
+  // passa aray vazio enquanto nao existe dados das bebidas
   return (
-    <Header />
+    <main>
+      <Header />
+      <ProductCard products={ [] } />
+    </main>
   );
 }
 export default Products;
