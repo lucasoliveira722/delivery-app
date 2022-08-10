@@ -23,12 +23,22 @@ function Login() {
 
   const handleLogin = useCallback(async () => {
     try {
-      const response = await API.loginUser(inputEmail, inputPassword);
-      handleSaveLocalStorage('token', response.token);
+      await API.loginUser(inputEmail, inputPassword)
+        .then((res) => {
+          if (res) {
+            handleSaveLocalStorage('token', res.token);
+            navigate('/products');
+          }
+        });
     } catch (error) {
       throw new Error(error.message);
     }
-  }, [inputEmail, inputPassword, handleSaveLocalStorage]);
+  }, [
+    inputEmail,
+    inputPassword,
+    navigate,
+    handleSaveLocalStorage,
+  ]);
 
   return (
     <form>

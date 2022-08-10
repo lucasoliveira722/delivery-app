@@ -7,7 +7,11 @@ function GenericContextProvider({ children }) {
     localStorage.setItem(key, JSON.stringify(value));
   }, []);
 
-  const value = useMemo(() => ({ handleSaveLocalStorage }), [handleSaveLocalStorage]);
+  const hadleGetItemLocaStorage = useCallback((key) => localStorage.getItem(key), []);
+
+  const value = useMemo(() => ({
+    handleSaveLocalStorage,
+    hadleGetItemLocaStorage }), [handleSaveLocalStorage, hadleGetItemLocaStorage]);
 
   return (
     <GenericContext.Provider value={ value }>
