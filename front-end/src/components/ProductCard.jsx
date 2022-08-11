@@ -15,8 +15,9 @@ function ProductCard({ products }) {
             {product.price}
           </h3>
           <img
+            style={ { width: '30%' } }
             data-testid={ `customer_products__img-card-bg-image-${product.id}` }
-            src={ product.image }
+            src={ product.url_image }
             alt={ product.name }
           />
           <h5
