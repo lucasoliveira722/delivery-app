@@ -1,7 +1,12 @@
-import React, { useState, useMemo, useCallback } from 'react';
+import React, { useState, useMemo, useCallback, useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
+import GenericContext from '../context/GenericContext';
 import API from '../services/API';
 
 function Register() {
+  const navigate = useNavigate();
+  const { handleSaveLocalStorage } = useContext(GenericContext);
+
   const [inputEmail, setInputEmail] = useState('');
   const [inputPassword, setInputPassword] = useState('');
   const [inputName, setInputName] = useState('');
@@ -23,11 +28,17 @@ function Register() {
   const registerUser = useCallback(async () => {
     const role = 'customer';
     try {
-      await API.registerUser(inputName, inputEmail, inputPassword, role);
+      await API.registerUser(inputName, inputEmail, inputPassword, role)
+        .then((res) => {
+          if (res) {
+            handleSaveLocalStorage('token', res.token);
+            navigate('/customer/products');
+          }
+        });
     } catch (error) {
       throw new Error(error.message);
     }
-  }, [inputEmail, inputName, inputPassword]);
+  }, [inputEmail, inputName, inputPassword, navigate, handleSaveLocalStorage]);
 
   return (
     <form>
