@@ -10,12 +10,13 @@ function Login() {
 
   const [inputEmail, setInputEmail] = useState('');
   const [inputPassword, setInputPassword] = useState('');
+  const [error, setError] = useState(false);
 
   const isValidButton = useMemo(() => {
     const regexEmail = /\S+@\S+\.\S+/;
     const numberCompare = 6;
     const valid = true;
-    if (regexEmail.test(inputEmail) && inputPassword.length > numberCompare) {
+    if (regexEmail.test(inputEmail) && inputPassword.length >= numberCompare) {
       return false;
     }
     return valid;
@@ -30,8 +31,9 @@ function Login() {
             navigate('/customer/products');
           }
         });
-    } catch (error) {
-      throw new Error(error.message);
+    } catch (err) {
+      setError(true);
+      throw new Error(err.message);
     }
   }, [
     inputEmail,
@@ -41,39 +43,49 @@ function Login() {
   ]);
 
   return (
-    <form>
-      <label htmlFor="common_login__input-email">
-        <input
-          data-testid="common_login__input-email"
-          placeholder="digite seu Email"
-          type="text"
-          onChange={ ({ target }) => setInputEmail(target.value) }
-        />
-      </label>
-      <label htmlFor="common_login__input-password">
-        <input
-          data-testid="common_login__input-password"
-          type="password"
-          placeholder="digite sua senha"
-          onChange={ ({ target }) => setInputPassword(target.value) }
-        />
-      </label>
-      <button
-        data-testid="common_login__button-login"
-        type="button"
-        disabled={ isValidButton }
-        onClick={ () => handleLogin() }
-      >
-        Login
-      </button>
-      <button
-        data-testid="common_login__button-register"
-        type="button"
-        onClick={ () => navigate('/register') }
-      >
-        Ainda Nao Tenho Conta
-      </button>
-    </form>
+    <section className="loginPage">
+      <form>
+        <label htmlFor="common_login__input-email">
+          <input
+            data-testid="common_login__input-email"
+            placeholder="digite seu Email"
+            type="text"
+            onChange={ ({ target }) => setInputEmail(target.value) }
+          />
+        </label>
+        <label htmlFor="common_login__input-password">
+          <input
+            data-testid="common_login__input-password"
+            type="password"
+            placeholder="digite sua senha"
+            onChange={ ({ target }) => setInputPassword(target.value) }
+          />
+        </label>
+        <button
+          data-testid="common_login__button-login"
+          type="button"
+          disabled={ isValidButton }
+          onClick={ () => handleLogin() }
+        >
+          Login
+        </button>
+        <button
+          data-testid="common_login__button-register"
+          type="button"
+          onClick={ () => navigate('/register') }
+        >
+          Ainda Nao Tenho Conta
+        </button>
+      </form>
+      {error
+      && (
+        <div
+          data-testid="common_login__element-invalid-email"
+        >
+          <h2>Usuário não cadastrado</h2>
+        </div>
+      )}
+    </section>
   );
 }
 
