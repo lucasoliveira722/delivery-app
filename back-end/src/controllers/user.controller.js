@@ -18,4 +18,9 @@ module.exports = {
         await userService.remove(id, role);
         return res.status(200).end();
     },
+
+    async getAllSellers(_req, res) {
+      const sellers = await userService.getAllSellers();
+      return res.status(200).json(sellers)
+    }
 };
