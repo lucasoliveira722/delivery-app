@@ -13,12 +13,12 @@ const noPasswordRequest = {
 };
 
 const wrongEmailRequest = {
-  email: 'zebirita@email.con',
+  email: 'test@email.com',
   password: '$#zebirita#$',
 };
 
 const invalidEmailRequest = {
-  email: 'zebirita@email.',
+  email: 'zebirit@email.',
   password: '$#zebirita#',
 };
 

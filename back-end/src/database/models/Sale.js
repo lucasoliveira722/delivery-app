@@ -6,31 +6,55 @@ const Sale = (sequelize, DataTypes) => {
             primaryKey: true,
             type: DataTypes.INTEGER
           },
-          user_id: {
+          userId: {
             allowNull: false,
             type: DataTypes.INTEGER,
+            foreignKey: true,
           },
-          seller_id: {
+          sellerId: {
             allowNull: false,
             type: DataTypes.INTEGER,
+            foreignKey: true,
           },
-          total_price: {
+          totalPrice: {
             allowNull: false,
             type: DataTypes.INTEGER
           },
-          delivery_address: {
+          deliveryAddress: {
             allowNull: false,
             type: DataTypes.STRING
           },
-          delivery_number: {
+          deliveryNumber: {
             allowNull: false,
             type: DataTypes.STRING
           },
-          sale_date: {
+          saleDate: {
             allowNull: false,
             type: DataTypes.DATE,
+            defaultValue: new Date(Date.now()),
           },
-    }, {timestamps: false, tableName: 'sales'});
+          status: {
+            allowNull: false,
+            type: DataTypes.STRING,
+            defaultValue: 'Pendente',
+          },
+    }, {timestamps: false, tableName: 'sales', underscored: true });
+
+    // Verificar as foreign keys em camel case
+    Sale.associate = (models) => {
+      Sale.belongsTo(models.User, {
+        foreignKey: 'seller_id',
+        as: 'seller',
+      });
+      Sale.belongsTo(models.User, {
+        foreignKey: 'user_id',
+        as: 'customer',
+      });
+      Sale.hasMany(models.SalesProduct, {
+        foreignKey: 'sale_id',
+        as: 'saleProducts'
+      })
+    }
   
     return Sale;
   };

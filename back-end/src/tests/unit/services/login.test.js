@@ -6,7 +6,6 @@ const jwt = require('jsonwebtoken');
 const {
   tokenMock,
   userDataValuesMock,
-  userRequest,
   successRequest,
 } = require('../../database-mock/loginMocks');
 
@@ -20,8 +19,8 @@ describe('Login service', () => {
     sinon.restore();
   });
 
-  describe('em caso de requisição com sucesso', () => {
-    it('retorna um token', async () => {
+  describe('1 - Caso de requisição com sucesso', () => {
+    it('1.1 - Retorna um token', async () => {
       const result = await LoginService.login(
         successRequest.email,
         successRequest.password
