@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import GenericContextProvider from './context/GenericContextProvider';
+import Checkout from './pages/Checkout';
 
 import Login from './pages/Login';
 import Products from './pages/Products';
@@ -15,6 +16,7 @@ function App() {
           <Route path="/login" element={ <Login /> } />
           <Route path="/register" element={ <Register /> } />
           <Route path="customer/products" element={ <Products /> } />
+          <Route path="/customer/checkout" element={ <Checkout /> } />
         </Routes>
       </BrowserRouter>
     </GenericContextProvider>
