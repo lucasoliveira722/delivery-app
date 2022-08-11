@@ -32,7 +32,12 @@ function Register() {
       await API.registerUser(inputName, inputEmail, inputPassword, role)
         .then((res) => {
           if (res) {
-            handleSaveLocalStorage('token', res.token);
+            handleSaveLocalStorage('user', {
+              name: inputName,
+              email: inputEmail,
+              role,
+              token: res.token,
+            });
             navigate('/customer/products');
           }
         });
