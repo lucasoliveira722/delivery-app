@@ -1,5 +1,7 @@
 const chai = require('chai');
 const sinon = require('sinon');
+const { User } = require('../../../database/models');
+const jwt = require('jsonwebtoken');
 const { expect } = require('chai');
 const chaiHttp = require('chai-http');
 const app = require('../../../api/app');
@@ -16,6 +18,10 @@ const {
   noPasswordRequest,
   invalidRoleRequest,
   sucessCreateUserRequest,
+  usersMock,
+  validGetAllRequest,
+  jwtVerifyMock,
+  adminLoginRequest,
 } = require('../../database-mock/userMocks');
 
 chai.use(chaiHttp);
@@ -152,6 +158,70 @@ describe('Integração - Testa requisição na rota /users/create', () => {
         .then((res) => {
           expect(res).to.have.status(400);
           expect(res.body.message).to.be.eql('Invalid role option');
+        });
+    });
+  });
+});
+
+describe('Integração - Testa requisição na rota /users', () => {
+  describe('1 - Em caso de sucesso, getAll', async () => {
+    before(() => {
+      sinon.stub(User, 'findOne').resolves(usersMock[0]);
+      sinon.stub(UserService, 'getAll').resolves(usersMock);
+    });
+
+    after(() => {
+      sinon.restore();
+    });
+
+    it('1.1 - Retorna status 200 e array com os usuários', async () => {
+      return chai
+        .request(app)
+        .post('/login')
+        .send(adminLoginRequest)
+        .then((res) => {
+          res.body.token;
+        })
+        .then((token) => {
+          chai
+            .request(app)
+            .get('/users')
+            .set('Authorization', token)
+            .then((res) => {
+              expect(res).to.have.status(200);
+              expect(res.body).to.be.eql(usersMock);
+            });
+        });
+    });
+  });
+
+  describe('2 - Em caso de falha', async () => {
+    before(() => {
+      sinon.stub(UserService, 'getAll').resolves(usersMock);
+    });
+
+    after(() => {
+      sinon.restore();
+    });
+
+    it('2.1 - Por falta de token na requisição, retorna status 401 e message: Token not found', async () => {
+      return chai
+        .request(app)
+        .get('/users')
+        .then((res) => {
+          expect(res).to.have.status(401);
+          expect(res.body.message).to.be.eql('Token not found');
+        });
+    });
+
+    it('2.2 - Caso de token inválido, retorna status 401 e message: Expired or invalid token', async () => {
+      return chai
+        .request(app)
+        .get('/users')
+        .set('Authorization', 'token inválido')
+        .then((res) => {
+          expect(res).to.have.status(401);
+          expect(res.body.message).to.be.eql('Expired or invalid token');
         });
     });
   });

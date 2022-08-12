@@ -33,16 +33,16 @@ module.exports = {
   async getAllSellers() {
     const sellers = await User.findAll({
       where: {
-        role: 'seller'
-      }
+        role: 'seller',
+      },
     });
     return sellers;
   },
- 
+
   async remove(id, role) {
-        if (role !== 'administrator') throw errorObj(403, 'User unauthorized');
-        const [userExist] = await User.findAll({ where: { id } });
-        if (!userExist) throw errorObj(404, 'User not found');
-        await User.destroy({ where: { id } });
-    },
+    if (role !== 'administrator') throw errorObj(403, 'User unauthorized');
+    const [userExist] = await User.findAll({ where: { id } });
+    if (!userExist) throw errorObj(404, 'User not found');
+    await User.destroy({ where: { id } });
+  },
 };
