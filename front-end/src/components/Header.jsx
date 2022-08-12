@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import { Link, useNavigate } from 'react-router-dom';
+import GenericContext from '../context/GenericContext';
 
 // pagina nao esta completa falta fazer integraçao
 
 function Header({ userName }) {
+  const { idUser } = useContext(GenericContext);
   const navigate = useNavigate();
   return (
     <header data-testid="header">
@@ -18,14 +20,14 @@ function Header({ userName }) {
         </Link>
         <Link
           data-testid="customer_products__element-navbar-link-orders"
-          to="/customer/products"
+          to={ `/customer/orders/${idUser}` }
           style={ { textDecoration: 'none', color: 'black' } }
         >
           <h1>Meus pedidos</h1>
         </Link>
         <Link
           data-testid="customer_products__element-navbar-user-full-name"
-          to="/customer/products"
+          to="/customer/orders/"
           style={ { textDecoration: 'none', color: 'black' } }
         >
           <h1>{userName}</h1>
