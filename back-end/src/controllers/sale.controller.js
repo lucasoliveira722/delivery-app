@@ -22,4 +22,10 @@ module.exports = {
         const sales = await saleService.readAll(id);
         return res.status(200).json(sales);
     },
+
+    async updateStatus(req, res) {
+        const { body: { status }, params: { id } } = req;
+        await saleService.updateStatus(status, id);
+        return res.status(200).end();
+    },
 };
