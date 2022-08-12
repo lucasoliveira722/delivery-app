@@ -6,6 +6,7 @@ const { tokenMock } = require('../../database-mock/loginMocks');
 const {
   sucessCreateUserRequest,
   usersMock,
+  sellersMock,
 } = require('../../database-mock/userMocks');
 
 describe('User controller', () => {
@@ -27,7 +28,7 @@ describe('User controller', () => {
         UserService.create.restore();
       });
 
-      it('1.1 - Retorna o status com o código 200', async () => {
+      it('1.1 - Retorna o status com o código 201', async () => {
         await UserController.create(request, response);
         expect(response.status.calledWith(201)).to.be.equal(true);
       });
@@ -62,6 +63,54 @@ describe('User controller', () => {
       it('1.2 - Retorna uma array de usuários', async () => {
         const result = await UserController.getAll(request, response);
         expect(result).to.be.equal(usersMock);
+      });
+    });
+  });
+
+  describe('Função getAllSellers', () => {
+    describe('1 - Caso de requisição com sucesso', () => {
+      before(() => {
+        response.status = sinon.stub().returns(response);
+        response.json = sinon.stub().returns(sellersMock);
+
+        sinon.stub(UserService, 'getAllSellers').resolves(sellersMock);
+      });
+
+      after(() => {
+        UserService.getAllSellers.restore();
+      });
+
+      it('1.1 - Retorna o status com o código 200', async () => {
+        await UserController.getAllSellers(request, response);
+        expect(response.status.calledWith(200)).to.be.equal(true);
+      });
+
+      it('1.2 - Retorna uma array de usuários vendedores', async () => {
+        const result = await UserController.getAll(request, response);
+        expect(result).to.be.equal(sellersMock);
+      });
+    });
+  });
+
+  describe('Função remove', () => {
+    describe('1 - Caso de requisição com sucesso', () => {
+      before(() => {
+        request.params = { id: 1 };
+        request.data = { role: 'administrator' };
+
+        response.status = sinon.stub().returns(response);
+        response.end = sinon.stub().returns();
+
+        sinon.stub(UserService, 'remove').resolves(true);
+      });
+
+      after(() => {
+        UserService.remove.restore();
+      });
+
+      it('1.1 - Retorna o status com o código 200', async () => {
+        await UserController.remove(request, response);
+        expect(response.status.calledWith(200)).to.be.equal(true);
       });
     });
   });

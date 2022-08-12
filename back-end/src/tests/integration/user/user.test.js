@@ -1,5 +1,6 @@
 const chai = require('chai');
 const sinon = require('sinon');
+const { User } = require('../../../database/models');
 const jwt = require('jsonwebtoken');
 const { expect } = require('chai');
 const chaiHttp = require('chai-http');
@@ -165,6 +166,7 @@ describe('Integração - Testa requisição na rota /users/create', () => {
 describe('Integração - Testa requisição na rota /users', () => {
   describe('1 - Em caso de sucesso, getAll', async () => {
     before(() => {
+      sinon.stub(User, 'findOne').resolves(usersMock[0]);
       sinon.stub(UserService, 'getAll').resolves(usersMock);
     });
 
@@ -177,8 +179,10 @@ describe('Integração - Testa requisição na rota /users', () => {
         .request(app)
         .post('/login')
         .send(adminLoginRequest)
-        .then((res) => res.body.token)
-        .then((token) =>
+        .then((res) => {
+          res.body.token;
+        })
+        .then((token) => {
           chai
             .request(app)
             .get('/users')
@@ -186,8 +190,8 @@ describe('Integração - Testa requisição na rota /users', () => {
             .then((res) => {
               expect(res).to.have.status(200);
               expect(res.body).to.be.eql(usersMock);
-            })
-        );
+            });
+        });
     });
   });
 
