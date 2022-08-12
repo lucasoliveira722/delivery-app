@@ -58,6 +58,11 @@ module.exports = {
             ],
         });
         return sales;
-    },
+    }, 
 
+    async updateStatus(status, id) {
+        const existSale = await Sale.findOne({ where: { id } });
+        if (!existSale) throw errorObj(404, 'Sale not found');
+        await Sale.update({ status }, { where: { id } });
+    },
 };
