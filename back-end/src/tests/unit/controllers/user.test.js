@@ -42,6 +42,8 @@ describe('User controller', () => {
   describe('Função getAll', () => {
     describe('1 - Caso de requisição com sucesso', () => {
       before(() => {
+        request.data = { role: 'administrator' };
+
         response.status = sinon.stub().returns(response);
         response.json = sinon.stub().returns(usersMock);
 

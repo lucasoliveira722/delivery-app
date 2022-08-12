@@ -48,7 +48,7 @@ describe('User service', () => {
 
   describe('3 - Função getAll em caso de requisição com sucesso', () => {
     it('3.1 - Retorna uma array de usuários', async () => {
-      const result = await UserService.getAll();
+      const result = await UserService.getAll('administrator');
       expect(result).to.be.deep.equal(usersMock);
     });
   });

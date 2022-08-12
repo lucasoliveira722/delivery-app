@@ -97,6 +97,11 @@ const invalidRoleRequest = {
   role: 'fail',
 };
 
+const adminLoginRequest = {
+  email: 'adm@deliveryapp.com',
+  password: '--adm2@21!!--',
+};
+
 module.exports = {
   sucessCreateUserRequest,
   userDataValuesMock,
@@ -112,4 +117,5 @@ module.exports = {
   shortNameRequestBody,
   usersMock,
   invalidRoleRequest,
+  adminLoginRequest,
 };

@@ -76,25 +76,4 @@ describe('Integração - Testa requisição na rota /login', () => {
         });
     });
   });
-
-  // describe('5- Caso de erro não tratado', () => {
-  //   before(async () => {
-  //     sinon.stub(User, 'findOne').resolves(null);
-  //   });
-
-  //   after(() => {
-  //     User.findOne.restore();
-  //   });
-
-  //   it('5.1- Retorna status 500 e objeto com message "Internal server error"', async () => {
-  //     return chai
-  //       .request(app)
-  //       .post('/login')
-  //       .send()
-  //       .then((res) => {
-  //         expect(res).to.have.status(500);
-  //         expect(res.body.message).to.be.eql('Internal server error');
-  //       });
-  //   });
-  // });
 });
