@@ -19,7 +19,7 @@ module.exports = {
       },
       url_image: {
         allowNull: false,
-        type: Sequelize.BLOB,
+        type: Sequelize.STRING,
       },
     });
   },
