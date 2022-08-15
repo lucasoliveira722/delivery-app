@@ -11,6 +11,7 @@ function Products() {
   const { token, name } = hadleGetItemLocaStorage('user');
 
   const getAllProducts = useCallback(async () => {
+    console.log(token);
     try {
       const response = await API.getAllProducts(token);
       setproducts(response);

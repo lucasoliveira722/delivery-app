@@ -1,4 +1,4 @@
-import React, { useState, useContext, useCallback, useEffect } from 'react';
+import React, { useContext, useCallback, useEffect } from 'react';
 import Header from '../components/Header';
 import SalesCard from '../components/SalesCard';
 import GenericContext from '../context/GenericContext';
@@ -6,7 +6,7 @@ import API from '../services/API';
 
 function OrderDetails() {
   const { idUser, hadleGetItemLocaStorage } = useContext(GenericContext);
-  const [sales, setSales] = useState([]);
+  // const [sales, setSales] = useState([]);
 
   const getSalesById = useCallback(async () => {
     const { token } = hadleGetItemLocaStorage('user');
