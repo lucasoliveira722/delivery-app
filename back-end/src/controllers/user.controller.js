@@ -12,4 +12,18 @@ module.exports = {
     const users = await userService.getAll(role);
     return res.status(200).json(users);
   },
+
+  async remove(req, res) {
+    const {
+      params: { id },
+      data: { role },
+    } = req;
+    await userService.remove(id, role);
+    return res.status(200).end();
+  },
+
+  async getAllSellers(_req, res) {
+    const sellers = await userService.getAllSellers();
+    return res.status(200).json(sellers);
+  },
 };

@@ -32,25 +32,24 @@ const getAllProducts = async (token) => {
   }
 };
 
-// const getAllProducts = async (token) => {
-//   const result = await fetch(
-//     'http://localhost:3001/products',
-//     {
-//       method: 'GET',
-//       headers: {
-//         Authorization: token,
-//       },
-//       mode: 'cors',
-//       cache: 'default',
-//     },
-//   );
-//   console.log(result);
-// };
+const getAllSalesMan = async (token) => {
+  try {
+    const { data } = await axios.get('http://localhost:3001/users/sellers', {
+      headers: {
+        Authorization: token,
+      },
+    });
+    return data;
+  } catch (error) {
+    throw new Error(error.message);
+  }
+};
 
 const API = {
   loginUser,
   registerUser,
   getAllProducts,
+  getAllSalesMan,
 };
 
 export default API;

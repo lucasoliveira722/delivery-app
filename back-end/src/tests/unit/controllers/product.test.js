@@ -33,7 +33,6 @@ describe('Product controller', () => {
 
     it('1.2 - Retorna uma array de produtos', async () => {
       const result = await ProductController.getAll(request, response);
-      console.log(result);
       expect(result).to.be.equal(productsMock);
     });
   });
