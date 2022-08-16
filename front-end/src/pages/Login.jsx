@@ -1,5 +1,5 @@
 import React, { useState, useMemo, useCallback, useContext } from 'react';
-// import { jwt_decode as teste } from 'jwt-decode';
+import jwtDecode from 'jwt-decode';
 
 import { useNavigate } from 'react-router-dom';
 import GenericContext from '../context/GenericContext';
