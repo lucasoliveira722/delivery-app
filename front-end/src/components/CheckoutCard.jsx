@@ -25,7 +25,7 @@ function CheckoutCard({ product, index }) {
         customer_checkout__element-order-table-unit-price-${index}` }
         key={ product.productId }
       >
-        {product.unitPrice}
+        {product.unitPrice.toFixed(2)}
       </span>
       <span
         style={ { width: '50%' } }
@@ -34,7 +34,7 @@ function CheckoutCard({ product, index }) {
         }
         key={ product.productId }
       >
-        {product.subTotal}
+        {product.subTotal.toFixed(2)}
       </span>
       <button
         style={ { width: '10%' } }

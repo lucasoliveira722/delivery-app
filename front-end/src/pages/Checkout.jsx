@@ -29,25 +29,20 @@ function Checkout() {
     getAllSallers();
   }, [getAllSallers]);
 
-  console.log(cart);
   return (
     <main>
       <Header />
-      <table style={ { width: '100%' } }>
-        <thead>
-          <tr
-            style={ { width: '100%', display: 'flex', justifyContent: 'space-between' } }
-          >
-            <th>Item</th>
-            <th>descriçao</th>
-            <th>quantidade</th>
-            <th>valor unitario</th>
-            <th>sub total</th>
-            <th>remover Item</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr style={ { width: '100%' } }>
+      <div>
+        <div>
+          <span>Item</span>
+          <span>descriçao</span>
+          <span>quantidade</span>
+          <span>valor unitario</span>
+          <span>sub total</span>
+          <span>remover Item</span>
+        </div>
+        <section>
+          <div>
             { cart.shoppingCart.length > 0 ? cart.shoppingCart.map((product, index) => (
               <CheckoutCard
                 key={ product.productId }
@@ -55,9 +50,9 @@ function Checkout() {
                 index={ index }
               />
             )) : <h1> loading ... </h1>}
-          </tr>
-        </tbody>
-      </table>
+          </div>
+        </section>
+      </div>
       <footer style={ { paddingTop: '5%' } }>
         <section style={ { paddingBottom: '5%' } }>
           <select
