@@ -18,7 +18,7 @@ function ProductCard({ product }) {
         subTotal: (product.price * qtdProduct),
       },
     });
-  }, [qtdProduct]);
+  }, [qtdProduct, dispatch, product.id, product.name, product.price]);
 
   return (
     <div key={ product.id }>
