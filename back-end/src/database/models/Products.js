@@ -16,7 +16,7 @@ const Product = (sequelize, DataTypes) => {
       },
       url_image: {
         allowNull: false,
-        type: DataTypes.BLOB
+        type: DataTypes.STRING
       },
     }, {timestamps: false, tableName: 'products'});
   

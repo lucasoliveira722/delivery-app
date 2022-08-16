@@ -1,8 +1,25 @@
 import PropTypes from 'prop-types';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { ADD_PRODUCT } from '../actions';
 
 function ProductCard({ product }) {
   const [qtdProduct, setQtdproduct] = useState(0);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch({
+      type: ADD_PRODUCT,
+      payload: {
+        productId: product.id,
+        name: product.name,
+        unitPrice: Number(product.price),
+        quantity: qtdProduct,
+        subTotal: (product.price * qtdProduct),
+      },
+    });
+  }, [qtdProduct]);
+
   return (
     <div key={ product.id }>
       <h3
@@ -24,13 +41,16 @@ function ProductCard({ product }) {
       <button
         data-testid={ `customer_products__button-card-add-item-${product.id}` }
         type="button"
-        onClick={ () => setQtdproduct(qtdProduct + 1) }
+        onClick={ () => {
+          setQtdproduct(qtdProduct + 1);
+        } }
       >
         +
       </button>
       <input
         data-testid={ `customer_products__input-card-quantity-${product.id}` }
         value={ qtdProduct }
+        onChange={ ({ target }) => setQtdproduct(target.value) }
       />
       <button
         data-testid={ `customer_products__button-card-rm-item-${product.id}` }
