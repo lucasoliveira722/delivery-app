@@ -1,5 +1,5 @@
 module.exports = {
-    async getImage() {
-        return 'imagem';
-    }
-}
+  async getImage() {
+    return 'imagem';
+  },
+};
