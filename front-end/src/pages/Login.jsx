@@ -1,10 +1,9 @@
 import React, { useState, useMemo, useCallback, useContext } from 'react';
 
 import { useNavigate } from 'react-router-dom';
+import jwtDecode from 'jwt-decode';
 import GenericContext from '../context/GenericContext';
 import API from '../services/API';
-
-const jwtDecode = require('jwt-decode');
 
 function Login() {
   const navigate = useNavigate();
