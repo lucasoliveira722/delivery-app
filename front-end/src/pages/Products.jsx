@@ -32,4 +32,3 @@ function Products() {
   );
 }
 export default Products;
-// comment for commit
