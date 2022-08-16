@@ -1,28 +1,19 @@
 import React, { useState, useCallback, useEffect, useContext, useMemo } from 'react';
-
+import { useSelector } from 'react-redux';
+import CheckoutCard from '../components/CheckoutCard';
+import Header from '../components/Header';
 import GenericContext from '../context/GenericContext';
 import API from '../services/API';
 
 function Checkout() {
-  const [prodcuts, setProducts] = useState([]);
   const [sallers, setSallers] = useState([]);
   const { hadleGetItemLocaStorage } = useContext(GenericContext);
-
-  const getItemsLocalStorage = useCallback(() => {
-    const prodcut = hadleGetItemLocaStorage('userCard');
-    setProducts(prodcut);
-  }, [hadleGetItemLocaStorage]);
+  const cart = useSelector((state) => state.shoppingCart);
 
   const totalValue = useMemo(() => {
-    let value = 0;
-    if (prodcuts) {
-      prodcuts.map((prodcut) => {
-        value += prodcut.subTotal;
-        return value;
-      });
-    }
+    const value = cart.totalValue.toFixed(2);
     return value;
-  }, [prodcuts]);
+  }, [cart]);
 
   const getAllSallers = useCallback(async () => {
     const { token } = hadleGetItemLocaStorage('user');
@@ -35,12 +26,13 @@ function Checkout() {
   }, [hadleGetItemLocaStorage]);
 
   useEffect(() => {
-    getItemsLocalStorage();
     getAllSallers();
-  }, [getItemsLocalStorage, getAllSallers]);
+  }, [getAllSallers]);
 
+  console.log(cart);
   return (
     <main>
+      <Header />
       <table style={ { width: '100%' } }>
         <thead>
           <tr
@@ -56,51 +48,21 @@ function Checkout() {
         </thead>
         <tbody>
           <tr style={ { width: '100%' } }>
-            {prodcuts ? prodcuts.map((product, index) => (
-              <>
-                <td
-                  data-testid={ `customer_checkout__element-order-table-name-${index}` }
-                  key={ product.id }
-                >
-                  {product.name}
-                </td>
-                <td
-                  data-testid={
-                    `customer_checkout__element-order-table-quantity-${index}`
-                  }
-                  key={ product.id }
-                >
-                  {product.name}
-                </td>
-                <td
-                  data-testid={ `
-                  customer_checkout__element-order-table-unit-price-${index}` }
-                  key={ product.id }
-                >
-                  {product.name}
-                </td>
-                <td
-                  data-testid={
-                    `customer_checkout__element-order-table-sub-total-${index}`
-                  }
-                  key={ product.id }
-                >
-                  {product.name}
-                </td>
-                <td
-                  data-testid={ `customer_checkout__element-order-table-remove-${index}` }
-                  key={ product.id }
-                >
-                  {product.name}
-                </td>
-              </>
+            { cart.shoppingCart.length > 0 ? cart.shoppingCart.map((product, index) => (
+              <CheckoutCard
+                key={ product.productId }
+                product={ product }
+                index={ index }
+              />
             )) : <h1> loading ... </h1>}
           </tr>
         </tbody>
       </table>
-      <footer>
-        <section>
-          <select data-testid="customer_checkout__select-seller">
+      <footer style={ { paddingTop: '5%' } }>
+        <section style={ { paddingBottom: '5%' } }>
+          <select
+            data-testid="customer_checkout__select-seller"
+          >
             {sallers ? sallers.map((saller) => (
               <option key={ saller.id }>
                 {saller.name}
