@@ -29,6 +29,7 @@ function Login() {
         .then((res) => {
           if (res) {
             const { data } = verify(res.token);
+
             handleSaveLocalStorage('user', {
               ...data,
               token: res.token,
