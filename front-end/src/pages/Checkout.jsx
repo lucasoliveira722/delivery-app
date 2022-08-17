@@ -24,7 +24,7 @@ function Checkout() {
     } catch (error) {
       throw new Error(error);
     }
-  }, [hadleGetItemLocaStorage]);
+  }, [token]);
 
   const createSale = async () => {
     const { data: { id } } = verify(token);
