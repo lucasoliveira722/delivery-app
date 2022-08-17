@@ -1,6 +1,6 @@
 const Sequelize = require('sequelize');
 const { Op } = require('sequelize');
-const { Sale, SalesProduct, Product } = require('../database/models');
+const { Sale, Product } = require('../database/models');
 const saleProductService = require('./salesProduct.service');
 const config = require('../database/config/config');
 const errorObj = require('../helpers/errorObj');
@@ -32,11 +32,13 @@ module.exports = {
             where: { id },
             include: [{ 
                 attributes: {
-                    exclude: ['url_image']
+                    exclude: ['url_image'],
                 },
-                model: Product, as: 'products', through: {
-                    attributes: ['quantity']
-                } 
+                model: Product,
+                as: 'products',
+                through: {
+                    attributes: ['quantity'],
+                }, 
             }],
         });
         if (!sale) throw errorObj(404, 'Sale id not found');
@@ -45,21 +47,17 @@ module.exports = {
 
     async readAll(id) {
         const sales = await Sale.findAll({
-            where: 
-            { [Op.or]: [
-                { userId: id },
-                { sellerId: id },            
-            ] },
-            attributes: {
-                exclude: ['seller_id', 'user_id'],
-            },
-            include: [
-                {   attributes: {
+            where: { [Op.or]: [{ userId: id }, { sellerId: id }] },
+            include: [{ 
+                    attributes: {
                     exclude: ['url_image'],
                 },
-                    model: Product, as: 'products', attributes: ['quantity'] 
-                },
-            ],
+                    model: Product,
+                    as: 'products',
+                    through: {
+                        attributes: ['quantity'], 
+                    },
+                }],
         });
         return sales;
     }, 
