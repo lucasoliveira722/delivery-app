@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState, useCallback } from 'react';
 import Header from '../components/Header';
 import OrderCard from '../components/OrderCard';
 import GenericContext from '../context/GenericContext';
@@ -9,14 +9,14 @@ function CustomerOrders() {
   const { token, name, id } = hadleGetItemLocaStorage('user');
   const [orders, setOrders] = useState([]);
 
-  const getAllOrders = async () => {
+  const getAllOrders = useCallback(async () => {
     const response = await API.getAllOrdersById(id, token);
     setOrders(response);
-  };
+  }, [id, token]);
 
   useEffect(() => {
     getAllOrders();
-  }, []);
+  }, [getAllOrders]);
 
   return (
     <main>
