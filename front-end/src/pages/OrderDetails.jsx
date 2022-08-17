@@ -9,7 +9,7 @@ function OrderDetails() {
   const test = useSelector((state) => console.log(state));
   console.log(test);
   const getAllSalesById = useCallback(async () => {
-    const id = 5;
+    const id = 1;
     try {
       const response = await API.getSalesById(id);
       setOrder(response);

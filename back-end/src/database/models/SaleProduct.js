@@ -1,35 +1,36 @@
 const SaleProduct = (sequelize, DataTypes) => {
-    const SaleProduct = sequelize.define('SalesProduct', {
+    const SaleProduct = sequelize.define('SaleProduct', {
         saleId: {
             allowNull: false,
             primaryKey: true,
             type: DataTypes.INTEGER,
+            foreignKey: true,
           },
           productId: {
             allowNull: false,
             primaryKey: true,
             type: DataTypes.INTEGER,
+            foreignKey: true,
           },
           quantity: {
             allowNull: false,
             type: DataTypes.INTEGER,
           }
-    }, {timestamps: false, tableName: 'salesProducts', underscored: true});
+    }, {timestamps: false, underscored: true, tableName: 'sales_products'});
 
-    // Verificar se é snakeCase ou camelCase
     SaleProduct.associate = (models) => {
-      SaleProduct.belongsTo(models.Sale, {
+      models.Product.belongsToMany(models.Sale, {
         as: 'sale',
         through: SaleProduct,
-        foreignKey: 'sale_id',
-        otherKey: 'product_id',
+        foreignKey: 'productId',
+        otherKey: 'saleId',
       });
 
-      SaleProduct.belongsTo(models.Product, {
-        as: 'product',
+      models.Sale.belongsToMany(models.Product, {
+        as: 'products',
         through: SaleProduct,
-        foreignKey: 'product_id',
-        otherKey: 'sale_id',
+        foreignKey: 'saleId',
+        otherKey: 'productId',
       })
     }
   

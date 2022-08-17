@@ -1,9 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import { useNavigate } from 'react-router-dom';
+
 function OrderCard({ order }) {
+  const navigate = useNavigate();
+  const d = new Date(order.saleDate);
+  const dataCerta = `${d.getDate()}/0${d.getMonth() + 1}/${d.getFullYear()}`;
   return (
-    <div
+    <button
+      type="button"
+      onClick={ () => navigate(`/customer/orders/${order.id}`) }
       key={ order.id }
       className="orderCard"
     >
@@ -20,14 +27,14 @@ function OrderCard({ order }) {
       <p
         data-testid={ `customer_orders__element-order-date-${order.id}` }
       >
-        {order.saleDate}
+        {dataCerta}
       </p>
       <p
         data-testid={ `customer_orders__element-card-price-${order.id}` }
       >
-        {order.totalPrice}
+        {(order.totalPrice).replace('.', ',')}
       </p>
-    </div>
+    </button>
   );
 }
 
