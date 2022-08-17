@@ -18,7 +18,11 @@ function Header({ userName }) {
         </Link>
         <Link
           data-testid="customer_products__element-navbar-link-orders"
+<<<<<<< HEAD
           to="/customer/orders"
+=======
+          to="/customer/checkout"
+>>>>>>> 9d14713a6571cb5e8a3db9e012b2fd9d6e924d87
           style={ { textDecoration: 'none', color: 'black' } }
         >
           <h1>Meus pedidos</h1>
