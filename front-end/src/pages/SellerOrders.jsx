@@ -1,8 +1,8 @@
 import { useEffect, useState, useCallback, useContext } from 'react';
 // import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import Header from '../components/Header';
 import SalesOrderCard from '../components/SalesOrderCard';
+import SellerHeader from '../components/SellerHeader';
 import GenericContext from '../context/GenericContext';
 import API from '../services/API';
 
@@ -27,7 +27,7 @@ function SellerOrders() {
 
   return (
     <main>
-      <Header userName={ name } />
+      <SellerHeader userName={ name } />
       <section className="salesSection">
         {sales.map((sale, i) => (
           <Link to={ `localhost:3000/seller/orders/${sale.id}` } key={ i }>

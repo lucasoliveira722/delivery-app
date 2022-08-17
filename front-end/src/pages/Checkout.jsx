@@ -24,7 +24,7 @@ function Checkout() {
     } catch (error) {
       throw new Error(error);
     }
-  }, [hadleGetItemLocaStorage]);
+  }, [token]);
 
   const createSale = async () => {
     const { data: { id } } = verify(token);
@@ -78,6 +78,7 @@ function Checkout() {
           >
             {sallers.map((saller) => (
               <option
+                value={ saller.id }
                 key={ saller.id }
                 onChange={ () => setSellerId(saller.id) }
               >

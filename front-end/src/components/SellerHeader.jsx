@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 // pagina nao esta completa falta fazer integraçao
 
-function Header({ userName }) {
-  const navigate = useNavigate();
+function SellerHeader({ userName }) {
+  // const navigate = useNavigate();
   return (
     <header data-testid="header">
       <nav style={ { display: 'flex', justifyContent: 'space-between' } }>
@@ -23,23 +23,25 @@ function Header({ userName }) {
         >
           <h1>{userName}</h1>
         </Link>
-        <button
-          type="button"
-          data-testid="customer_products__element-navbar-link-logout"
-          onClick={ () => {
-            localStorage.removeItem('user');
-            navigate('/login');
-          } }
-        >
-          Sair
-        </button>
+        <div data-testid="customer_products__element-navbar-link-logout">
+          <Link to="/login">
+            <button
+              type="button"
+              onClick={ () => {
+                localStorage.removeItem('user');
+              } }
+            >
+              Sair
+            </button>
+          </Link>
+        </div>
       </nav>
     </header>
   );
 }
 
-export default Header;
+export default SellerHeader;
 
-Header.propTypes = {
+SellerHeader.propTypes = {
   userName: PropTypes.string.isRequired,
 };
