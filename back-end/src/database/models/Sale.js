@@ -31,7 +31,6 @@ const Sale = (sequelize, DataTypes) => {
           saleDate: {
             allowNull: false,
             type: DataTypes.DATE,
-            defaultValue: new Date(Date.now()),
           },
           status: {
             allowNull: false,

@@ -14,8 +14,6 @@ function CustomerOrders() {
     setOrders(response);
   };
 
-  console.log(orders);
-
   useEffect(() => {
     getAllOrders();
   }, []);
