@@ -37,22 +37,18 @@ const Sale = (sequelize, DataTypes) => {
             type: DataTypes.STRING,
             defaultValue: 'Pendente',
           },
-    }, {timestamps: false, tableName: 'sales', underscored: true });
+    }, {timestamps: false, underscored: true, tableName: 'sales' });
 
     // Verificar as foreign keys em camel case
     Sale.associate = (models) => {
       Sale.belongsTo(models.User, {
-        foreignKey: 'seller_id',
+        foreignKey: 'sellerId',
         as: 'seller',
       });
       Sale.belongsTo(models.User, {
-        foreignKey: 'user_id',
+        foreignKey: 'userId',
         as: 'customer',
       });
-      Sale.hasMany(models.SalesProduct, {
-        foreignKey: 'sale_id',
-        as: 'saleProducts'
-      })
     }
   
     return Sale;

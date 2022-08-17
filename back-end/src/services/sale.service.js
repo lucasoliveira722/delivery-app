@@ -1,6 +1,6 @@
 const Sequelize = require('sequelize');
 const { Op } = require('sequelize');
-const { Sale, SalesProduct } = require('../database/models');
+const { Sale, SalesProduct, Product } = require('../database/models');
 const saleProductService = require('./salesProduct.service');
 const config = require('../database/config/config');
 const errorObj = require('../helpers/errorObj');
@@ -28,16 +28,16 @@ module.exports = {
     },
     
     async readOne(id) {
-        // Verificar pq está retornando os valores seller_id e user_id em snake_case;
-        // Usei o exclude ali, mas n faz mt sentido...
         const sale = await Sale.findOne({
             where: { id },
-            attributes: {
-              exclude: ['seller_id', 'user_id'],  
-            },
-            include: [
-                { model: SalesProduct, as: 'saleProducts', attributes: ['productId', 'quantity'] },
-            ],
+            include: [{ 
+                attributes: {
+                    exclude: ['url_image']
+                },
+                model: Product, as: 'products', through: {
+                    attributes: ['quantity']
+                } 
+            }],
         });
         if (!sale) throw errorObj(404, 'Sale id not found');
         return sale;
@@ -54,7 +54,11 @@ module.exports = {
                 exclude: ['seller_id', 'user_id'],
             },
             include: [
-                { model: SalesProduct, as: 'saleProducts', attributes: ['productId', 'quantity'] },
+                {   attributes: {
+                    exclude: ['url_image'],
+                },
+                    model: Product, as: 'products', attributes: ['quantity'] 
+                },
             ],
         });
         return sales;
