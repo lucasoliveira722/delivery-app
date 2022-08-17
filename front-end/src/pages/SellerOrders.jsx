@@ -1,39 +1,40 @@
 import { useEffect, useState, useCallback, useContext } from 'react';
-import { useSelector } from 'react-redux';
+// import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
-import ProductCard from '../components/ProductCard';
+import SalesOrderCard from '../components/SalesOrderCard';
 import GenericContext from '../context/GenericContext';
 import API from '../services/API';
 
-function Products() {
-  const { hadleGetItemLocaStorage } = useContext(GenericContext);
-  const [products, setproducts] = useState([]);
+function SellerOrders() {
+  const { idUser, hadleGetItemLocaStorage } = useContext(GenericContext);
+  const [sales, setSales] = useState([]);
   const { token, name } = hadleGetItemLocaStorage('user');
-  const { totalValue, shoppingCart } = useSelector((state) => state.shoppingCart);
+  // const { totalValue, shoppingCart } = useSelector((state) => state.shoppingCart);
   const navigate = useNavigate();
 
-  const getAllProducts = useCallback(async () => {
+  const getAllSales = useCallback(async () => {
     try {
-      const response = await API.getAllProducts(token);
-      setproducts(response);
+      const response = await API.getSellerSalesById(idUser, token);
+      setSales(response);
     } catch (error) {
       throw new Error(error.message);
     }
-  }, [token]);
+  }, [idUser, token]);
 
   useEffect(() => {
-    getAllProducts();
-  }, [getAllProducts]);
+    getAllSales();
+  }, [getAllSales]);
 
   return (
     <main>
       <Header userName={ name } />
-      <section className="productsSection">
-        {products.map((product, i) => (
-          <ProductCard
+      <section className="salesSection">
+        {sales.map((sale, i) => (
+          <SalesOrderCard
             key={ i }
-            product={ product }
+            sale={ sale }
+            data-testid={ `seller_orders__element-order-date-${sale.id}` }
           />
         ))}
       </section>
@@ -53,4 +54,4 @@ function Products() {
     </main>
   );
 }
-export default Products;
+export default SellerOrders;

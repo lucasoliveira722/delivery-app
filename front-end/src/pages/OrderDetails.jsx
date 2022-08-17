@@ -10,7 +10,6 @@ function OrderDetails() {
 
   const getSalesById = useCallback(async () => {
     const { token } = hadleGetItemLocaStorage('user');
-    console.log(token);
     try {
       const result = await API.getSealesById(idUser, token);
       console.log(result);

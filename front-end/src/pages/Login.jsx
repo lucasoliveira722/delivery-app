@@ -1,7 +1,8 @@
 import React, { useState, useMemo, useCallback, useContext } from 'react';
+import verify from 'jwt-decode';
 
 import { useNavigate } from 'react-router-dom';
-import jwtDecode from 'jwt-decode';
+// import jwtDecode from 'jwt-decode';
 import GenericContext from '../context/GenericContext';
 import API from '../services/API';
 
@@ -28,7 +29,8 @@ function Login() {
       await API.loginUser(inputEmail, inputPassword)
         .then((res) => {
           if (res) {
-            const { data } = jwtDecode(res.token);
+            const { data } = verify(res.token);
+
             handleSaveLocalStorage('user', {
               ...data,
               token: res.token,
