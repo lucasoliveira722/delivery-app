@@ -8,7 +8,7 @@ import API from '../services/API';
 function Login() {
   const navigate = useNavigate();
   const { handleSaveLocalStorage,
-    hadleGetItemLocaStorage } = useContext(GenericContext);
+  } = useContext(GenericContext);
 
   const [inputEmail, setInputEmail] = useState('');
   const [inputPassword, setInputPassword] = useState('');

@@ -30,4 +30,15 @@ function OrderCard({ order }) {
   );
 }
 
+OrderCard.propTypes = {
+  order: PropTypes.shape({
+    index: PropTypes.number,
+    status: PropTypes.string,
+    saleDate: PropTypes.date,
+    totalPrice: PropTypes.number,
+    subTotal: PropTypes.number,
+    id: PropTypes.number,
+  }).isRequired,
+};
+
 export default OrderCard;
