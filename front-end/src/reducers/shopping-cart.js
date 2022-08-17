@@ -1,4 +1,4 @@
-import { ADD_PRODUCT } from '../actions';
+import { ADD_PRODUCT, REMOVE_PRODUCT } from '../actions';
 
 const INITIAL_STATE = {
   shoppingCart: [],
@@ -19,6 +19,12 @@ const shoppingCart = (state = INITIAL_STATE, action) => {
   case ADD_PRODUCT:
     return {
       shoppingCart: updatedCart,
+      totalValue,
+    };
+  case REMOVE_PRODUCT:
+    return {
+      shoppingCart: state.shoppingCart.filter((f) => action
+        .payload.productId !== f.productId),
       totalValue,
     };
   default:

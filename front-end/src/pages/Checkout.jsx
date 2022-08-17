@@ -1,5 +1,7 @@
-import React, { useState, useCallback, useEffect, useContext, useMemo } from 'react';
+import React, { useState, useCallback, useEffect, useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import verify from 'jwt-decode';
 import CheckoutCard from '../components/CheckoutCard';
 import Header from '../components/Header';
 import GenericContext from '../context/GenericContext';
@@ -7,16 +9,15 @@ import API from '../services/API';
 
 function Checkout() {
   const [sallers, setSallers] = useState([]);
+  const [sellerId, setSellerId] = useState(2);
+  const [deliveryAddress, setDeliveryAddress] = useState('');
+  const [deliveryNumber, setDeliveryNumber] = useState('');
   const { hadleGetItemLocaStorage } = useContext(GenericContext);
-  const cart = useSelector((state) => state.shoppingCart);
-
-  const totalValue = useMemo(() => {
-    const value = cart.totalValue.toFixed(2);
-    return value;
-  }, [cart]);
+  const { totalValue, shoppingCart } = useSelector((state) => state.shoppingCart);
+  const { token, name } = hadleGetItemLocaStorage('user');
+  const navigate = useNavigate();
 
   const getAllSallers = useCallback(async () => {
-    const { token } = hadleGetItemLocaStorage('user');
     try {
       const response = await API.getAllSalesMan(token);
       setSallers(response);
@@ -25,13 +26,29 @@ function Checkout() {
     }
   }, [hadleGetItemLocaStorage]);
 
+  const createSale = async () => {
+    const { data: { id } } = verify(token);
+    const itemsSold = shoppingCart.map(({ productId, quantity }) => (
+      { productId, quantity }));
+    const body = {
+      userId: id,
+      sellerId,
+      totalPrice: totalValue,
+      deliveryAddress,
+      deliveryNumber,
+      itemsSold: [...itemsSold],
+    };
+    const response = await API.createOrder(body, token);
+    navigate(`/customer/orders/${response.id}`);
+  };
+
   useEffect(() => {
     getAllSallers();
   }, [getAllSallers]);
 
   return (
     <main>
-      <Header />
+      <Header userName={ name } />
       <div>
         <div>
           <span>Item</span>
@@ -43,42 +60,56 @@ function Checkout() {
         </div>
         <section>
           <div>
-            { cart.shoppingCart.length > 0 ? cart.shoppingCart.map((product, index) => (
-              <CheckoutCard
-                key={ product.productId }
-                product={ product }
-                index={ index }
-              />
-            )) : <h1> loading ... </h1>}
+            { shoppingCart.filter(({ productId }) => productId > 0)
+              .map((product, index) => (
+                <CheckoutCard
+                  key={ product.productId }
+                  product={ product }
+                  index={ index }
+                />
+              ))}
           </div>
         </section>
       </div>
-      <footer style={ { paddingTop: '5%' } }>
-        <section style={ { paddingBottom: '5%' } }>
+      <footer>
+        <section>
           <select
             data-testid="customer_checkout__select-seller"
           >
-            {sallers ? sallers.map((saller) => (
-              <option key={ saller.id }>
+            {sallers.map((saller) => (
+              <option
+                key={ saller.id }
+                onChange={ () => setSellerId(saller.id) }
+              >
                 {saller.name}
               </option>
-            )) : <option> user</option>}
+            ))}
           </select>
           <input
             data-testid="customer_checkout__input-address"
             type="text"
             placeholder="Digite seu endereço"
+            value={ deliveryAddress }
+            onChange={ ({ target }) => setDeliveryAddress(target.value) }
           />
           <input
             data-testid="customer_checkout__input-addressNumber"
             type="number"
             placeholder="Digite seu numero"
+            value={ deliveryNumber }
+            onChange={ ({ target }) => setDeliveryNumber(target.value) }
           />
         </section>
-        <h4>{`Total: ${totalValue}`}</h4>
+        <h4
+          data-testid="customer_checkout__element-order-total-price"
+        >
+          {`Total: ${totalValue.toFixed(2).replace('.', ',')}`}
+
+        </h4>
         <button
           data-testid="customer_checkout__button-submit-order"
           type="button"
+          onClick={ () => createSale() }
         >
           Finalizar pedido
         </button>

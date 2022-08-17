@@ -45,11 +45,41 @@ const getAllSalesMan = async (token) => {
   }
 };
 
+const createOrder = async (body, token) => {
+  try {
+    const { data } = await axios.post('http://localhost:3001/sales', {
+      ...body,
+    }, {
+      headers: {
+        Authorization: token,
+      },
+    });
+    return data;
+  } catch (error) {
+    throw new Error(error.message);
+  }
+};
+
+const getAllOrdersById = async (id, token) => {
+  try {
+    const { data } = await axios.get(`http://localhost:3001/sales/user/${id}`, {
+      headers: {
+        Authorization: token,
+      },
+    });
+    return data;
+  } catch (error) {
+    throw new Error(error.message);
+  }
+};
+
 const API = {
   loginUser,
   registerUser,
   getAllProducts,
   getAllSalesMan,
+  getAllOrdersById,
+  createOrder,
 };
 
 export default API;
