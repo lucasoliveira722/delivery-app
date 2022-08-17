@@ -6,7 +6,12 @@ module.exports = {
             userId, sellerId, totalPrice, deliveryAddress, deliveryNumber, itemsSold, 
         } = req.body;
         const newSale = await saleService.create({ 
-            userId, sellerId, totalPrice, deliveryAddress, deliveryNumber, itemsSold,
+            userId,
+sellerId,
+totalPrice,
+deliveryAddress,
+deliveryNumber,
+itemsSold,
             saleDate: new Date(),
         });
         return res.status(201).json(newSale);
