@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 function OrderCard({ order }) {
   return (
@@ -34,7 +35,7 @@ OrderCard.propTypes = {
   order: PropTypes.shape({
     index: PropTypes.number,
     status: PropTypes.string,
-    saleDate: PropTypes.date,
+    saleDate: PropTypes.string,
     totalPrice: PropTypes.number,
     subTotal: PropTypes.number,
     id: PropTypes.number,
