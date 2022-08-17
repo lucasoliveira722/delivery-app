@@ -1,10 +1,9 @@
 require('dotenv').config();
 const jwt = require('jsonwebtoken');
-const fs = require('fs');
 
-const secret = require('fs')
-.readFileSync('./jwt.evaluation.key', { encoding: 'utf-8' });
-
+const secret = require('fs').readFileSync('./jwt.evaluation.key', {
+  encoding: 'utf-8',
+});
 
 module.exports = {
   async validateJWT(req, res, next) {

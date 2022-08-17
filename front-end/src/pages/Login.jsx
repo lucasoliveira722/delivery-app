@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useCallback, useContext } from 'react';
+import React, { useState, useMemo, useCallback, useContext, useEffect } from 'react';
 import verify from 'jwt-decode';
 
 import { useNavigate } from 'react-router-dom';
@@ -8,7 +8,8 @@ import API from '../services/API';
 
 function Login() {
   const navigate = useNavigate();
-  const { handleSaveLocalStorage } = useContext(GenericContext);
+  const { handleSaveLocalStorage,
+  } = useContext(GenericContext);
 
   const [inputEmail, setInputEmail] = useState('');
   const [inputPassword, setInputPassword] = useState('');
@@ -35,7 +36,11 @@ function Login() {
               ...data,
               token: res.token,
             });
-            navigate('/customer/products');
+            if (data.role === 'seller') {
+              navigate('/seller/orders');
+            } else {
+              navigate('/customer/products');
+            }
           }
         });
     } catch (err) {
@@ -48,6 +53,11 @@ function Login() {
     navigate,
     handleSaveLocalStorage,
   ]);
+
+  useEffect(() => {
+    const token = JSON.parse(localStorage.getItem('user'));
+    if (token) navigate('/customer/products');
+  }, []);
 
   return (
     <section className="loginPage">

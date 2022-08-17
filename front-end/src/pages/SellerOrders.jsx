@@ -1,6 +1,6 @@
 import { useEffect, useState, useCallback, useContext } from 'react';
 // import { useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import SalesOrderCard from '../components/SalesOrderCard';
 import GenericContext from '../context/GenericContext';
@@ -11,11 +11,10 @@ function SellerOrders() {
   const [sales, setSales] = useState([]);
   const { token, name } = hadleGetItemLocaStorage('user');
   // const { totalValue, shoppingCart } = useSelector((state) => state.shoppingCart);
-  const navigate = useNavigate();
 
   const getAllSales = useCallback(async () => {
     try {
-      const response = await API.getSellerSalesById(idUser, token);
+      const response = await API.getAllOrdersById(idUser, token);
       setSales(response);
     } catch (error) {
       throw new Error(error.message);
@@ -31,26 +30,15 @@ function SellerOrders() {
       <Header userName={ name } />
       <section className="salesSection">
         {sales.map((sale, i) => (
-          <SalesOrderCard
-            key={ i }
-            sale={ sale }
-            data-testid={ `seller_orders__element-order-date-${sale.id}` }
-          />
+          <Link to={ `localhost:3000/seller/orders/${sale.id}` } key={ i }>
+            <SalesOrderCard
+              key={ i }
+              sale={ sale }
+              data-testid={ `seller_orders__element-order-date-${sale.id}` }
+            />
+          </Link>
         ))}
       </section>
-      <h2
-        data-testid="customer_products__checkout-bottom-value"
-      >
-        {totalValue.toFixed(2).replace('.', ',')}
-      </h2>
-      <button
-        type="button"
-        data-testid="customer_products__button-cart"
-        onClick={ () => navigate('/customer/checkout') }
-        disabled={ !shoppingCart.some((item) => item.quantity > 0) }
-      >
-        Checkout
-      </button>
     </main>
   );
 }

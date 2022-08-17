@@ -7,11 +7,13 @@ function SalesOrderCard({ sale }) {
 
   return (
     <main>
-      <h3>{`Pedido ${sale.id}`}</h3>
-      <h3>{`${sale.status}`}</h3>
-      <h3>{`${date}`}</h3>
-      <h3>{`${sale.totalPrice}`}</h3>
-      <h3>{`${sale.deliveryAddress}, ${sale.deliveryNumber}`}</h3>
+      <h3 data-testid="seller_orders__element-order-id">{`Pedido ${sale.id}`}</h3>
+      <h3 data-testid="seller_orders__element-delivery-status">{`${sale.status}`}</h3>
+      <h3 data-testid="seller_orders__element-order-date">{`${date}`}</h3>
+      <h3 data-testid="seller_orders__element-card-price">{`${sale.totalPrice}`}</h3>
+      <h3 data-testid="seller_orders__element-card-address">
+        {`${sale.deliveryAddress}, ${sale.deliveryNumber}`}
+      </h3>
     </main>
   );
 }
