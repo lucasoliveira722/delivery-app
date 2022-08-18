@@ -30,7 +30,7 @@ function SellerOrders() {
       <SellerHeader userName={ name } />
       <section className="salesSection">
         {sales.map((sale, i) => (
-          <Link to={ `localhost:3000/seller/orders/${sale.id}` } key={ i }>
+          <Link to={ `/seller/orders/${sale.id}` } key={ i }>
             <SalesOrderCard
               key={ i }
               sale={ sale }

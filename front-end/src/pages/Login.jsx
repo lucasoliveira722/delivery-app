@@ -57,7 +57,7 @@ function Login() {
   useEffect(() => {
     const token = JSON.parse(localStorage.getItem('user'));
     if (token) navigate('/customer/products');
-  }, []);
+  }, [navigate]);
 
   return (
     <section className="loginPage">

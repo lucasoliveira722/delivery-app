@@ -1,5 +1,5 @@
 import React, { useState, useCallback, useEffect, useContext } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import verify from 'jwt-decode';
 import CheckoutCard from '../components/CheckoutCard';
@@ -62,11 +62,16 @@ function Checkout() {
           <div>
             { shoppingCart.filter(({ productId }) => productId > 0)
               .map((product, index) => (
-                <CheckoutCard
-                  key={ product.productId }
-                  product={ product }
-                  index={ index }
-                />
+                <Link
+                  key={ index }
+                  to={ `/customer/orders/${index}` }
+                >
+                  <CheckoutCard
+                    key={ product.productId }
+                    product={ product }
+                    index={ index }
+                  />
+                </Link>
               ))}
           </div>
         </section>
