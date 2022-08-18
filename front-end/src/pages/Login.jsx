@@ -35,7 +35,11 @@ function Login() {
               ...data,
               token: res.token,
             });
-            navigate('/customer/products');
+            if (data.role === 'administrator') {
+              navigate('/admin/manage');
+            } else {
+              navigate('/customer/products');
+            }
           }
         });
     } catch (err) {
@@ -52,7 +56,7 @@ function Login() {
   useEffect(() => {
     const token = JSON.parse(localStorage.getItem('user'));
     if (token) navigate('/customer/products');
-  }, []);
+  }, [navigate]);
 
   return (
     <section className="loginPage">
