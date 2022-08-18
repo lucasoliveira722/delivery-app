@@ -73,6 +73,19 @@ const getAllOrdersById = async (id, token) => {
   }
 };
 
+const getSaleById = async (id, token) => {
+  try {
+    const { data } = await axios.get(`http://localhost:3001/sales/${id},`, {
+      headers: {
+        Authorization: token,
+      },
+    });
+    return data;
+  } catch (error) {
+    throw new Error(error.message);
+  }
+};
+
 const API = {
   loginUser,
   registerUser,
@@ -80,6 +93,7 @@ const API = {
   getAllSalesMan,
   getAllOrdersById,
   createOrder,
+  getSaleById,
 };
 
 export default API;
