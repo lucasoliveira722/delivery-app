@@ -36,7 +36,7 @@ SalesOrderCard.propTypes = {
   sale: PropTypes.objectOf({
     id: PropTypes.number,
     status: PropTypes.string,
-    saleDate: PropTypes.instanceOf(Date),
+    saleDate: PropTypes.string,
     totalPrice: PropTypes.string,
     deliveryAddress: PropTypes.string,
     deliveryNumber: PropTypes.string,

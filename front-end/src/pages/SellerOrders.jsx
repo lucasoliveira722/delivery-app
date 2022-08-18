@@ -1,5 +1,4 @@
 import { useEffect, useState, useCallback, useContext } from 'react';
-// import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import SalesOrderCard from '../components/SalesOrderCard';
 import SellerHeader from '../components/SellerHeader';
@@ -10,11 +9,10 @@ function SellerOrders() {
   const { idUser, hadleGetItemLocaStorage } = useContext(GenericContext);
   const [sales, setSales] = useState([]);
   const { token, name } = hadleGetItemLocaStorage('user');
-  // const { totalValue, shoppingCart } = useSelector((state) => state.shoppingCart);
 
   const getAllSales = useCallback(async () => {
     try {
-      const response = await API.getAllOrdersById(idUser, token);
+      const response = await API.getSalesBySellerId(idUser, token);
       setSales(response);
     } catch (error) {
       throw new Error(error.message);
@@ -23,14 +21,14 @@ function SellerOrders() {
 
   useEffect(() => {
     getAllSales();
-  }, [getAllSales]);
+  }, []);
 
   return (
     <main>
       <SellerHeader userName={ name } />
       <section className="salesSection">
         {sales.map((sale, i) => (
-          <Link to={ `/seller/orders/${sale.id}` } key={ i }>
+          <Link to={ `/seller/orders/${sale.id}` } key={ i } id={ sale.id }>
             <SalesOrderCard
               key={ i }
               sale={ sale }
