@@ -11,7 +11,6 @@ import CustomerOrders from './pages/CustomerOrders';
 import CustomerOrderDetails from './pages/CustomerOrderDetails';
 import OrderDetails from './pages/OrderDetails';
 import Manager from './pages/Manager';
-import SellerOrders from './pages/SellerOrders';
 
 function App() {
   return (
@@ -22,11 +21,10 @@ function App() {
             <Route path="/" element={ <Navigate replace to="/login" /> } />
             <Route path="/login" element={ <Login /> } />
             <Route path="/register" element={ <Register /> } />
-            <Route path="/customer/products" element={ <Products /> } />
+            <Route path="customer/products" element={ <Products /> } />
             <Route path="/customer/checkout" element={ <Checkout /> } />
             <Route path="/customer/orders" element={ <CustomerOrders /> } />
             <Route path="/customer/orders/:id" element={ <CustomerOrderDetails /> } />
-            <Route path="/seller/orders" element={ <SellerOrders /> } />
             <Route path="/admin/manage" element={ <Manager /> } />
             <Route path="/cafezinho" element={ <OrderDetails /> } />
           </Routes>
