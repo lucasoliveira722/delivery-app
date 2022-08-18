@@ -9,8 +9,10 @@ function GenericContextProvider({ children }) {
     localStorage.setItem(key, JSON.stringify(value));
   }, []);
 
-  const hadleGetItemLocaStorage = useCallback((key) => JSON
-    .parse(localStorage.getItem(key)), []);
+  const hadleGetItemLocaStorage = useCallback(
+    (key) => JSON.parse(localStorage.getItem(key)),
+    [],
+  );
 
   const getIduser = useCallback(() => {
     const user = hadleGetItemLocaStorage('user');
@@ -28,14 +30,13 @@ function GenericContextProvider({ children }) {
     () => ({
       handleSaveLocalStorage,
       idUser,
-      hadleGetItemLocaStorage }),
+      hadleGetItemLocaStorage,
+    }),
     [handleSaveLocalStorage, hadleGetItemLocaStorage, idUser],
   );
 
   return (
-    <GenericContext.Provider value={ value }>
-      {children}
-    </GenericContext.Provider>
+    <GenericContext.Provider value={ value }>{children}</GenericContext.Provider>
   );
 }
 

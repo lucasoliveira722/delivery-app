@@ -14,7 +14,10 @@ const updateCart = (shoppingCart, payload) => {
 
 const shoppingCart = (state = INITIAL_STATE, action) => {
   const updatedCart = updateCart(state.shoppingCart, action.payload);
-  const totalValue = updatedCart.reduce((acc, curr) => acc + Number(curr?.subTotal), 0);
+  const totalValue = updatedCart.reduce(
+    (acc, curr) => acc + Number(curr?.subTotal),
+    0,
+  );
   switch (action.type) {
   case ADD_PRODUCT:
     return {
@@ -23,8 +26,9 @@ const shoppingCart = (state = INITIAL_STATE, action) => {
     };
   case REMOVE_PRODUCT:
     return {
-      shoppingCart: state.shoppingCart.filter((f) => action
-        .payload.productId !== f.productId),
+      shoppingCart: state.shoppingCart.filter(
+        (f) => action.payload.productId !== f.productId,
+      ),
       totalValue,
     };
   default:

@@ -4,24 +4,17 @@ import { Link } from 'react-router-dom';
 
 // pagina nao esta completa falta fazer integraçao
 
-function Header({ userName }) {
+function SellerHeader({ userName }) {
   // const navigate = useNavigate();
   return (
     <header data-testid="header">
       <nav style={ { display: 'flex', justifyContent: 'space-between' } }>
         <Link
           data-testid="customer_products__element-navbar-link-products"
-          to="/customer/products"
+          to="/seller/products"
           style={ { textDecoration: 'none', color: 'black' } }
         >
-          <h1>Produtos</h1>
-        </Link>
-        <Link
-          data-testid="customer_products__element-navbar-link-orders"
-          to="/customer/orders"
-          style={ { textDecoration: 'none', color: 'black' } }
-        >
-          <h1>Meus pedidos</h1>
+          <h1>Pedidos</h1>
         </Link>
         <Link
           data-testid="customer_products__element-navbar-user-full-name"
@@ -47,8 +40,8 @@ function Header({ userName }) {
   );
 }
 
-export default Header;
+export default SellerHeader;
 
-Header.propTypes = {
+SellerHeader.propTypes = {
   userName: PropTypes.string.isRequired,
 };

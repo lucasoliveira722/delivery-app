@@ -30,16 +30,20 @@ const adminRegisterUser = async (user, token) => {
   console.log('token:', token);
   console.log('\nuser data:', user.name, user.email, user.password, user.role);
   try {
-    const { data } = await axios.post('http://localhost:3001/users/admin/create', {
-      name: user.name,
-      email: user.email,
-      password: user.password,
-      role: user.role,
-    }, {
-      headers: {
-        Authorization: token,
+    const { data } = await axios.post(
+      'http://localhost:3001/users/admin/create',
+      {
+        name: user.name,
+        email: user.email,
+        password: user.password,
+        role: user.role,
       },
-    });
+      {
+        headers: {
+          Authorization: token,
+        },
+      },
+    );
     return data;
   } catch (error) {
     throw new Error(error.message);
@@ -91,7 +95,7 @@ const createOrder = async (body, token) => {
   }
 };
 
-const getAllOrdersById = async (id, token) => {
+const getSalesBySellerId = async (id, token) => {
   try {
     const { data } = await axios.get(`http://localhost:3001/sales/user/${id}`, {
       headers: {
@@ -136,10 +140,10 @@ const API = {
   adminRegisterUser,
   getAllProducts,
   getAllSalesMan,
-  getAllOrdersById,
   createOrder,
   getSaleById,
   getSalesById,
+  getSalesBySellerId,
 };
 
 export default API;
