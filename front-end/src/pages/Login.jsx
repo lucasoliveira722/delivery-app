@@ -35,7 +35,11 @@ function Login() {
               ...data,
               token: res.token,
             });
-            navigate('/customer/products');
+            if (data.role === 'administrator') {
+              navigate('/admin/manage');
+            } else {
+              navigate('/customer/products');
+            }
           }
         });
     } catch (err) {
