@@ -36,7 +36,9 @@ function Login() {
               ...data,
               token: res.token,
             });
-            if (data.role === 'seller') {
+            if (data.role === 'administrator') {
+              navigate('/admin/manage');
+            } else if (data.role === 'seller') {
               navigate('/seller/orders');
             } else {
               navigate('/customer/products');

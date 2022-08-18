@@ -1,6 +1,6 @@
 const Sequelize = require('sequelize');
 const { Op } = require('sequelize');
-const { Sale, Product } = require('../database/models');
+const { Sale, Product, User } = require('../database/models');
 const saleProductService = require('./salesProduct.service');
 const config = require('../database/config/config');
 const errorObj = require('../helpers/errorObj');
@@ -26,19 +26,21 @@ module.exports = {
             throw errorObj(400, err.message);
         }
     },
-    
+
     async readOne(id) {
-        const sale = await Sale.findOne({
-            where: { id },
-            include: [{ 
-                attributes: {
-                    exclude: ['url_image'],
-                },
+        const sale = await Sale.findOne({ where: { id },
+            include: [{ attributes: { exclude: ['url_image'] },
                 model: Product,
                 as: 'products',
-                through: {
-                    attributes: ['quantity'],
-                }, 
+                through: { attributes: ['quantity'] }, 
+            }, {
+                model: User,
+                as: 'seller',
+                attributes: ['name'],
+            }, {
+                model: User,
+                as: 'customer',
+                attributes: ['name'],
             }],
         });
         if (!sale) throw errorObj(404, 'Sale id not found');

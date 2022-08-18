@@ -26,6 +26,30 @@ const registerUser = async (name, email, password, role) => {
   }
 };
 
+const adminRegisterUser = async (user, token) => {
+  console.log('token:', token);
+  console.log('\nuser data:', user.name, user.email, user.password, user.role);
+  try {
+    const { data } = await axios.post(
+      'http://localhost:3001/users/admin/create',
+      {
+        name: user.name,
+        email: user.email,
+        password: user.password,
+        role: user.role,
+      },
+      {
+        headers: {
+          Authorization: token,
+        },
+      },
+    );
+    return data;
+  } catch (error) {
+    throw new Error(error.message);
+  }
+};
+
 const getAllProducts = async (token) => {
   try {
     const { data } = await axios.get('http://localhost:3001/products', {
@@ -84,12 +108,40 @@ const getSalesBySellerId = async (id, token) => {
   }
 };
 
+const getSalesById = async (id, token) => {
+  try {
+    const { data } = await axios.get(`http://localhost:3001/sales/${id}`, {
+      headers: {
+        Authorization: token,
+      },
+    });
+    return data;
+  } catch (error) {
+    throw new Error(error.message);
+  }
+};
+
+const getSaleById = async (id, token) => {
+  try {
+    const { data } = await axios.get(`http://localhost:3001/sales/${id},`, {
+      headers: {
+        Authorization: token,
+      },
+    });
+    return data;
+  } catch (error) {
+    throw new Error(error.message);
+  }
+};
+
 const API = {
   loginUser,
   registerUser,
+  adminRegisterUser,
   getAllProducts,
   getAllSalesMan,
   createOrder,
+  getSaleById,
   getSalesById,
   getSalesBySellerId,
 };

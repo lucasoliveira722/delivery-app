@@ -5,11 +5,12 @@ import GenericContextProvider from './context/GenericContextProvider';
 import store from './store';
 import Checkout from './pages/Checkout';
 import Login from './pages/Login';
-// import OrderDetails from './pages/OrderDetails';
 import Products from './pages/Products';
 import Register from './pages/Register';
 import CustomerOrders from './pages/CustomerOrders';
+import CustomerOrderDetails from './pages/CustomerOrderDetails';
 import OrderDetails from './pages/OrderDetails';
+import Manager from './pages/Manager';
 import SellerOrders from './pages/SellerOrders';
 
 function App() {
@@ -24,8 +25,9 @@ function App() {
             <Route path="/customer/products" element={ <Products /> } />
             <Route path="/customer/checkout" element={ <Checkout /> } />
             <Route path="/customer/orders" element={ <CustomerOrders /> } />
-            <Route path="/customer/orders/:id" element={ <OrderDetails /> } />
+            <Route path="/customer/orders/:id" element={ <CustomerOrderDetails /> } />
             <Route path="/seller/orders" element={ <SellerOrders /> } />
+            <Route path="/admin/manage" element={ <Manager /> } />
             <Route path="/cafezinho" element={ <OrderDetails /> } />
           </Routes>
         </Provider>
