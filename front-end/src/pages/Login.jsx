@@ -1,7 +1,16 @@
 import React, { useState, useMemo, useCallback, useContext, useEffect } from 'react';
 import verify from 'jwt-decode';
+import {
+  Box,
+  Button,
+  FormControl,
+  FormLabel,
+  Typography,
+} from '@mui/material';
 
 import { useNavigate } from 'react-router-dom';
+
+import { MyTextFiel, MyBox } from '../Styles/styledComponent';
 // import jwtDecode from 'jwt-decode';
 import GenericContext from '../context/GenericContext';
 import API from '../services/API';
@@ -62,49 +71,57 @@ function Login() {
   }, [navigate]);
 
   return (
-    <section className="loginPage">
-      <form>
-        <label htmlFor="common_login__input-email">
-          <input
+    <MyBox>
+      <FormControl style={ { width: '100%' } }>
+        <FormLabel htmlFor="common_login__input-email">
+          <MyTextFiel
             data-testid="common_login__input-email"
             placeholder="digite seu Email"
             type="text"
             onChange={ ({ target }) => setInputEmail(target.value) }
           />
-        </label>
-        <label htmlFor="common_login__input-password">
-          <input
+        </FormLabel>
+        <FormLabel htmlFor="common_login__input-password">
+          <MyTextFiel
             data-testid="common_login__input-password"
             type="password"
             placeholder="digite sua senha"
             onChange={ ({ target }) => setInputPassword(target.value) }
           />
-        </label>
-        <button
+        </FormLabel>
+
+        <Button
+          style={ { width: '15%', marginTop: '20px' } }
+          variant="contained"
+          color="primary"
           data-testid="common_login__button-login"
           type="button"
           disabled={ isValidButton }
           onClick={ () => handleLogin() }
         >
           Login
-        </button>
-        <button
+        </Button>
+        <Button
+          style={ { width: '15%' } }
+          variant="outlined"
+          color="primary"
           data-testid="common_login__button-register"
           type="button"
           onClick={ () => navigate('/register') }
         >
           Ainda Nao Tenho Conta
-        </button>
-      </form>
+        </Button>
+
+      </FormControl>
       {error
       && (
-        <div
+        <Box
           data-testid="common_login__element-invalid-email"
         >
-          <h2>Usuário não cadastrado</h2>
-        </div>
+          <Typography variant="h2">Usuário não cadastrado</Typography>
+        </Box>
       )}
-    </section>
+    </MyBox>
   );
 }
 
